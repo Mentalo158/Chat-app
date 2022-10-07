@@ -1,55 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/page/firstPage.dart';
+import 'package:flutter_course/page/firstScreen.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MaterialApp(home: MyApp()));
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // Rerender state
   @override
-  State<StatefulWidget> createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  TabBar get _tabBar => const TabBar(
-        tabs: [
-          Tab(icon: Icon(Icons.flight)),
-          Tab(icon: Icon(Icons.directions_transit)),
-          Tab(icon: Icon(Icons.directions_car)),
-        ],
-      );
-  // The build method creates the widget
+  int currentIndex = 0;
+
+  final screens = [
+    firstScreen(),
+    Center(child: Text('Feed', style: TextStyle(fontSize: 60))),
+    Center(child: Text('Chat', style: TextStyle(fontSize: 60))),
+    Center(child: Text('Settings', style: TextStyle(fontSize: 60))),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return Scaffold(
       // Scaffold widget for basic page styling
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.grey,
-            title: const Text(
-              'veeJob',
-              style: TextStyle(color: Color(0xffffffaa)),
-            ),
-            centerTitle: true,
-            bottom: PreferredSize(
-              preferredSize: _tabBar.preferredSize,
-              child: Material(
-                color: Colors.black,
-                child: _tabBar,
-              ),
-            ),
-          ),
-          body: const TabBarView(
-            children: [
-              firstPage(),
-              Center(child: Text('Tab 2 Content')),
-              Center(child: Text('Tab 3 Content')),
-            ],
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Text(
+          'veeJob',
+          style: TextStyle(color: Color(0xffffffaa)),
         ),
+        centerTitle: true,
+      ),
+      // Change pages per Index
+      body: screens[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
+
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        showUnselectedLabels: false,
+        // type: BottomNavigationBarType.fixed,
+        // iconSize: 25,
+        // selectedFontSize: 20,
+        // unselectedFontSize: 20,
+
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Feed',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Chat',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Settings',
+            backgroundColor: Colors.blue,
+          ),
+        ],
       ),
     );
   }
