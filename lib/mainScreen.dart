@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/firstScreen.dart';
+import 'package:flutter_course/screens/profileScreen.dart';
+import 'screens/homeScreen.dart';
 
 class mainScreen extends StatefulWidget {
   @override
@@ -10,9 +11,9 @@ class _mainScreenState extends State<mainScreen> {
   int currentIndex = 0;
 
   final screens = [
-    firstScreen(),
+    homeScreen(),
     Center(child: Text('Feed', style: TextStyle(fontSize: 60))),
-    Center(child: Text('Chat', style: TextStyle(fontSize: 60))),
+    profileScreen(),
     Center(child: Text('Settings', style: TextStyle(fontSize: 60))),
   ];
 
@@ -24,14 +25,16 @@ class _mainScreenState extends State<mainScreen> {
       //   index: currentIndex,
       //   children: screens,
       // ),
-      appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: Text(
-          'veeJob',
-          style: TextStyle(color: Color(0xffffffaa)),
-        ),
-        centerTitle: true,
-      ),
+
+      // Appbar maybe?
+      // appBar: AppBar(
+      //   backgroundColor: Colors.grey,
+      //   title: Text(
+      //     'veeJob',
+      //     style: TextStyle(color: Color(0xffffffaa)),
+      //   ),
+      //   centerTitle: true,
+      // ),
       // Change pages per Index
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
