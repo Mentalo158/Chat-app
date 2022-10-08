@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../loggedInScreen.dart';
+import '../../mainScreen.dart';
 import 'regScreen.dart';
 
 class logScreen extends StatefulWidget {
@@ -113,7 +113,7 @@ class _logScreenState extends State<logScreen> {
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => loggedIn()));
+                            builder: (context) => mainScreen()));
                       },
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(400, 50),

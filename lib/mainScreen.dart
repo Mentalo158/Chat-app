@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'screens/firstScreen.dart';
 
-class loggedIn extends StatefulWidget {
+class mainScreen extends StatefulWidget {
   @override
-  State<loggedIn> createState() => _loggedInState();
+  State<mainScreen> createState() => _mainScreenState();
 }
 
-class _loggedInState extends State<loggedIn> {
+class _mainScreenState extends State<mainScreen> {
   int currentIndex = 0;
 
   final screens = [
