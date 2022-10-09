@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/profileScreen.dart';
+import 'package:flutter_course/screens/chatScreen.dart';
+import 'screens/profileScreen.dart';
+import 'screens/settingsScreen.dart';
 import 'screens/homeScreen.dart';
 
 class mainScreen extends StatefulWidget {
@@ -12,15 +14,15 @@ class _mainScreenState extends State<mainScreen> {
 
   final screens = [
     homeScreen(),
-    Center(child: Text('Feed', style: TextStyle(fontSize: 60))),
+    chatScreen(),
     profileScreen(),
-    Center(child: Text('Settings', style: TextStyle(fontSize: 60))),
+    settingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // state doesnt change after screen change
+      // stateful widgets dont reset after screen change
       // body: IndexedStack(
       //   index: currentIndex,
       //   children: screens,
@@ -35,6 +37,7 @@ class _mainScreenState extends State<mainScreen> {
       //   ),
       //   centerTitle: true,
       // ),
+
       // Change pages per Index
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -44,7 +47,8 @@ class _mainScreenState extends State<mainScreen> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showUnselectedLabels: false,
-        // type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.grey[800],
         // iconSize: 25,
         // selectedFontSize: 20,
         // unselectedFontSize: 20,
@@ -53,22 +57,18 @@ class _mainScreenState extends State<mainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Feed',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.chat),
             label: 'Chat',
-            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.account_circle_rounded),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: Colors.blue,
           ),
         ],
       ),

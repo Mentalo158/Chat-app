@@ -13,6 +13,7 @@ class profileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
+        // TODO make int amount dynamic
         children: _buildGridTileList(30),
       );
 
