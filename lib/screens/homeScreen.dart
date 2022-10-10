@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types113
 
 class homeScreen extends StatelessWidget {
-  homeScreen({super.key});
+  const homeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
