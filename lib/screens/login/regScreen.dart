@@ -68,7 +68,7 @@ class _regScreenState extends State<regScreen> {
               SizedBox(
                 height: 40,
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
                   minimumSize: const Size(400, 50),
