@@ -5,6 +5,8 @@ import 'screens/settingsScreen.dart';
 import 'screens/homeScreen.dart';
 
 class mainScreen extends StatefulWidget {
+  const mainScreen({super.key});
+
   @override
   State<mainScreen> createState() => _mainScreenState();
 }
