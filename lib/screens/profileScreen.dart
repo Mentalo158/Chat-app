@@ -5,8 +5,8 @@ class profileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildGrid(),
+    // TODO change prof looks shit
+    return Scaffold( body: Column(children: [Expanded(child: _buildGrid())],),
     );
   }
 
