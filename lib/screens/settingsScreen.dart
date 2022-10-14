@@ -13,14 +13,19 @@ class settingsScreen extends StatelessWidget {
   Widget _buildList() => ListView(children: [
         // TODO Routes for each tile
         _tile('Test'),
-        _tile('Test'),
-        // Divider(),
+        _tile('Design'),
         _tile('Change languegue'),
         _tile('Sing out'),
-        // ...
       ]);
 
   ListTile _tile(String title) => ListTile(
-      title: Text(title,
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20)));
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+      );
 }

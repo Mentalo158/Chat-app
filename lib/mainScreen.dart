@@ -64,11 +64,11 @@ class _mainScreenState extends State<mainScreen> {
       // ),
 
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor: Color(0xFF091123),
         automaticallyImplyLeading: false,
         title: Text(
           _currentAppBarTitle,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       // Change pages per Index
@@ -82,7 +82,7 @@ class _mainScreenState extends State<mainScreen> {
         showUnselectedLabels: false,
         showSelectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Color(0xFF091123),
         // iconSize: 25,
         // selectedFontSize: 20,
         // unselectedFontSize: 20,

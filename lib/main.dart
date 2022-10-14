@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var currentBackgroundcolor = Colors.grey[600];
+  var currentBackgroundcolor = Color(0xFF08172A);
 
   @override
   Widget build(BuildContext context) {

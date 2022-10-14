@@ -5,7 +5,7 @@ class profileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String bioDescription = "Test 123";
+    String _bioDescription = "Test 123";
 
     // Seperator is just size box
     Widget Seperator(double distance) {
@@ -21,7 +21,7 @@ class profileScreen extends StatelessWidget {
           Stack(
             children: [
               Container(
-                child: Image.asset('assets/imageheader.jpg'),
+                child: Image.asset('assets/images/imageheader.jpg'),
                 height: 150,
                 width: double.infinity,
               ),
@@ -29,7 +29,7 @@ class profileScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  child: Image.asset('assets/imageprofile.jpg'),
+                  child: Image.asset('assets/images/imageprofile.jpg'),
                   height: 50,
                   width: 50,
                 ),
@@ -41,7 +41,7 @@ class profileScreen extends StatelessWidget {
           Container(
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text(bioDescription),
+              child: Text(_bioDescription),
             ),
           ),
           // TODO Bio box
