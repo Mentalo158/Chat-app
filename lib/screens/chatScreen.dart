@@ -6,7 +6,9 @@ class chatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('HALLO', style: TextStyle(fontSize: 100))),
+      body: Center(
+        child: Text('HALLO', style: TextStyle(fontSize: 100)),
+      ),
     );
   }
 }

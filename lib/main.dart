@@ -11,8 +11,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var currentBackgroundcolor = Colors.grey[600];
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: logScreen());
+    return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: currentBackgroundcolor,
+      ),
+      home: logScreen(),
+    );
   }
 }
