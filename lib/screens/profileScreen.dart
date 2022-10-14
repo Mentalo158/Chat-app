@@ -5,10 +5,18 @@ class profileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String bioDescription = "";
+
+    Seperator(double distance) {
+      return SizedBox(
+        height: distance,
+      );
+    }
+
     // TODO change prof look
     return Scaffold(
       body: Column(
-        children: [
+        children: <Widget>[
           Stack(
             children: [
               Container(
@@ -27,10 +35,12 @@ class profileScreen extends StatelessWidget {
               )
             ],
           ),
-          // TODO Bio box
-          SizedBox(
-            height: 200,
+          Seperator(20),
+          Container(
+            child: Text(bioDescription),
           ),
+          // TODO Bio box
+          Seperator(20),
           Expanded(child: _buildGrid())
         ],
       ),
