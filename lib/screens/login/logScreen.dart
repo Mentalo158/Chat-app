@@ -63,16 +63,18 @@ class _logScreenState extends State<logScreen> {
                     const SizedBox(height: 9),
                     TextField(
                       decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(
-                                color: Colors.white60,
-                                width: 3,
-                              )),
-                          hintText: "E-mail eingeben!",
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                          )),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Colors.white60,
+                            width: 3,
+                          ),
+                        ),
+                        hintText: "E-mail eingeben!",
+                        hintStyle: const TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 30,
@@ -112,8 +114,11 @@ class _logScreenState extends State<logScreen> {
                     // Anmelde Button
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => mainScreen()));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => mainScreen(),
+                          ),
+                        );
                       },
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(400, 50),
@@ -132,8 +137,11 @@ class _logScreenState extends State<logScreen> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => regScreen()));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => regScreen(),
+                              ),
+                            );
                           },
                           child: const Text(
                             "Registriere dich!",

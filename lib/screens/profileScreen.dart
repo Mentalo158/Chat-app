@@ -5,9 +5,10 @@ class profileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String bioDescription = "";
+    String bioDescription = "Test 123";
 
-    Seperator(double distance) {
+    // Seperator is just size box
+    Widget Seperator(double distance) {
       return SizedBox(
         height: distance,
       );
@@ -36,11 +37,15 @@ class profileScreen extends StatelessWidget {
             ],
           ),
           Seperator(20),
+          // TODO change align to positioned?
           Container(
-            child: Text(bioDescription),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(bioDescription),
+            ),
           ),
           // TODO Bio box
-          Seperator(20),
+          Seperator(80),
           Expanded(child: _buildGrid())
         ],
       ),
@@ -53,7 +58,7 @@ class profileScreen extends StatelessWidget {
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         // TODO make int amount dynamic
-        children: _buildGridTileList(30),
+        children: _buildGridTileList(0),
       );
 
   List<Container> _buildGridTileList(int count) => List.generate(

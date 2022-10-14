@@ -5,7 +5,9 @@ class settingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildList());
+    return Scaffold(
+      body: _buildList(),
+    );
   }
 
   Widget _buildList() => ListView(children: [

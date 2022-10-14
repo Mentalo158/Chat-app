@@ -12,8 +12,10 @@ class mainScreen extends StatefulWidget {
 }
 
 class _mainScreenState extends State<mainScreen> {
-  int currentIndex = 0;
+  int _currentIndex = 0;
+  String _currentAppBarTitle = "";
 
+  // Different screens for BottomNavigatorBar
   final screens = [
     homeScreen(),
     chatScreen(),
@@ -21,8 +23,39 @@ class _mainScreenState extends State<mainScreen> {
     settingsScreen(),
   ];
 
+  // Change the appBarTitle with index
+  void appBarTitle(int index) {
+    setState(() {
+      _currentIndex = index;
+      switch (index) {
+        case 0:
+          {
+            _currentAppBarTitle = "Home";
+          }
+          break;
+        case 1:
+          {
+            _currentAppBarTitle = "Chat";
+          }
+          break;
+        case 2:
+          {
+            _currentAppBarTitle = "Profile";
+          }
+          break;
+        case 3:
+          {
+            _currentAppBarTitle = "Settings";
+          }
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    appBarTitle(_currentIndex);
+
     return Scaffold(
       // stateful widgets dont reset after screen change
       // body: IndexedStack(
@@ -30,25 +63,24 @@ class _mainScreenState extends State<mainScreen> {
       //   children: screens,
       // ),
 
-      // Appbar maybe?
-      // appBar: AppBar(
-      //   backgroundColor: Colors.grey,
-      //   title: Text(
-      //     'veeJob',
-      //     style: TextStyle(color: Color(0xffffffaa)),
-      //   ),
-      //   centerTitle: true,
-      // ),
-
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        automaticallyImplyLeading: false,
+        title: Text(
+          _currentAppBarTitle,
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       // Change pages per Index
-      body: screens[currentIndex],
+      body: screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
 
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showUnselectedLabels: false,
+        showSelectedLabels: false,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.grey[800],
         // iconSize: 25,
