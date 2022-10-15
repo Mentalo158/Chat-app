@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/chatScreen.dart';
-import 'screens/profileScreen.dart';
-import 'screens/settingsScreen.dart';
-import 'screens/homeScreen.dart';
+import 'package:flutter_course/screens/tabBarScreens/chatScreen.dart';
+import 'screens/tabBarScreens/profileScreen.dart';
+import 'screens/tabBarScreens/settingsScreen.dart';
+import 'screens/tabBarScreens/homeScreen.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
