@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../mainScreen.dart';
+import '../../AppBarWidget.dart';
 import 'regScreen.dart';
 
 class logScreen extends StatefulWidget {
