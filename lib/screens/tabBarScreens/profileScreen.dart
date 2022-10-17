@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
           children: <Widget>[
             profileTop(),
             // TODO change align to positioned?
-            seperator(50),
+            SizedBox(height: 50),
             Container(
               margin: EdgeInsets.only(left: 30),
               child: Text(
@@ -28,16 +28,16 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            seperator(5),
+            SizedBox(height: 5),
             Container(
               margin: EdgeInsets.only(left: 30),
               child: Text(
                 _bioDescription,
-                style: TextStyle(color: Colors.white),
+                // style: TextStyle(color: Colors.white),
               ),
             ),
 
-            seperator(50),
+            SizedBox(height: 50),
             // TODO Bio box
             Container(
               width: double.infinity,
@@ -63,20 +63,13 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            seperator(10),
+            SizedBox(height: 10),
             Expanded(
               child: buildGridView(),
             )
           ],
         ),
       ),
-    );
-  }
-
-  // Seperator is just size box
-  Widget seperator(double distance) {
-    return SizedBox(
-      height: distance,
     );
   }
 
