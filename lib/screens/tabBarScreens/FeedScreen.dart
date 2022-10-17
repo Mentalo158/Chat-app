@@ -15,5 +15,5 @@ class FeedScreen extends StatelessWidget {
   // TODO Concept for home?
   Widget _buildList() => ListView(children: []);
 
-  ListTile _tile() => ListTile();
+  ListTile _tile() => const ListTile();
 }

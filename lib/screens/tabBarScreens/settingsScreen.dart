@@ -11,11 +11,11 @@ class SettingsScreen extends StatelessWidget {
         children: [
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              minimumSize: Size.fromHeight(50),
+              minimumSize: const Size.fromHeight(50),
             ),
             onPressed: () => FirebaseAuth.instance.signOut(),
-            icon: Icon(Icons.arrow_back, size: 32),
-            label: Text('Sign out'),
+            icon: const Icon(Icons.arrow_back, size: 32),
+            label: const Text('Sign out'),
           )
         ],
       ),
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
   ListTile _tile(String title) => ListTile(
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 20,
             color: Colors.white,

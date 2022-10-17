@@ -53,7 +53,7 @@ class _SignInWidgetState extends State<SignInWidget> {
             const SizedBox(height: 20),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size.fromHeight(50),
+                minimumSize: const Size.fromHeight(50),
               ),
               onPressed: signIn,
               icon: const Icon(Icons.lock_open, size: 32),
@@ -62,7 +62,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                 style: TextStyle(fontSize: 24),
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             GestureDetector(
               child: Text(
                 'Forgot Password?',
@@ -78,10 +78,10 @@ class _SignInWidgetState extends State<SignInWidget> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             RichText(
                 text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style: const TextStyle(color: Colors.black, fontSize: 20),
                     text: 'No account?',
                     children: [
                   TextSpan(
@@ -102,7 +102,7 @@ class _SignInWidgetState extends State<SignInWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );

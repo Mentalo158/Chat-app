@@ -5,6 +5,8 @@ import 'package:flutter_course/HomeScreen.dart';
 import 'package:flutter_course/screens/login/Utils.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
+  const VerifyEmailScreen({super.key});
+
   @override
   State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
 }
@@ -24,7 +26,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       sendVerificationEmail();
 
       timer = Timer.periodic(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
     }
@@ -54,7 +56,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       await user.sendEmailVerification();
 
       setState(() => canResendEmail = false);
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 5));
       setState(() => canResendEmail = true);
     } catch (e) {
       Utils.showSnackBar(e.toString());
@@ -63,40 +65,40 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? HomeScreen()
+      ? const HomeScreen()
       : Scaffold(
           appBar: AppBar(
-            title: Text('Verify Email'),
+            title: const Text('Verify Email'),
           ),
           body: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'A verification email has been sent to your email.',
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(50),
+                    minimumSize: const Size.fromHeight(50),
                   ),
                   onPressed: canResendEmail ? sendVerificationEmail : null,
-                  icon: Icon(Icons.email, size: 32),
-                  label: Text(
+                  icon: const Icon(Icons.email, size: 32),
+                  label: const Text(
                     'Resent Email',
                     style: TextStyle(fontSize: 24),
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TextButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(50),
+                    minimumSize: const Size.fromHeight(50),
                   ),
                   onPressed: () => FirebaseAuth.instance.signOut(),
-                  child: Text(
+                  child: const Text(
                     'Cancel',
                     style: TextStyle(fontSize: 24),
                   ),

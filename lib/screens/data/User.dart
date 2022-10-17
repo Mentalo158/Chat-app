@@ -7,6 +7,13 @@ class User {
   final String description;
   final String isDarkMode;
 
-  const User(this.imagePath, this.name, this.email, this.description,
-      this.isDarkMode, this.imagePathProfile, this.imagePathHeader);
+  const User(
+    this.imagePath,
+    this.name,
+    this.email,
+    this.description,
+    this.isDarkMode,
+    this.imagePathProfile,
+    this.imagePathHeader,
+  );
 }

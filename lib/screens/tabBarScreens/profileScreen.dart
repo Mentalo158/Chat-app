@@ -16,28 +16,28 @@ class ProfileScreen extends StatelessWidget {
           children: <Widget>[
             profileTop(),
             // TODO change align to positioned?
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Container(
-              margin: EdgeInsets.only(left: 30),
+              margin: const EdgeInsets.only(left: 30),
               child: Text(
                 _bioDescription,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Container(
-              margin: EdgeInsets.only(left: 30),
+              margin: const EdgeInsets.only(left: 30),
               child: Text(
                 _bioDescription,
                 // style: TextStyle(color: Colors.white),
               ),
             ),
 
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             // TODO Bio box
             Container(
               width: double.infinity,
@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: buildGridView(),
             )
@@ -108,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
           crossAxisCount: 4,
         ),
         // disable scrolling and infinite size error
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: 50,
         itemBuilder: ((context, index) => buildImageCard(index)),
@@ -116,12 +116,12 @@ class ProfileScreen extends StatelessWidget {
 
   Widget buildImageCard(int index) => Card(
         margin: EdgeInsets.zero,
-        color: Color.fromARGB(255, 1, 34, 51),
+        color: const Color.fromARGB(255, 1, 34, 51),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
         child: Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(

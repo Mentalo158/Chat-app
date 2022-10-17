@@ -11,18 +11,19 @@ class MainScreen extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+          // ignore: unrelated_type_equality_checks
           if (snapshot.connectionState == ConnectionState) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Something went wrong'),
             );
           } else if (snapshot.hasData) {
-            return VerifyEmailScreen();
+            return const VerifyEmailScreen();
           } else {
-            return AuthScreen();
+            return const AuthScreen();
           }
         },
       ),
