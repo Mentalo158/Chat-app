@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'screens/login/logScreen.dart';
+import 'package:flutter_course/screens/login/MainScreen.dart';
+import 'package:flutter_course/screens/login/Utils.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
-  var currentBackgroundcolor = Color(0xFF08172A);
+final navigatorKey = GlobalKey<NavigatorState>();
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+  var currentBackgroundcolor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         scaffoldBackgroundColor: currentBackgroundcolor,
       ),
-      home: logScreen(),
+      home: MainScreen(),
     );
   }
 }

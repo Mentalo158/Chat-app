@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/tabBarScreens/ChatScreen.dart';
 import 'screens/tabBarScreens/ProfileScreen.dart';
 import 'screens/tabBarScreens/SettingsScreen.dart';
-import 'screens/tabBarScreens/HomeScreen.dart';
+import 'screens/tabBarScreens/FeedScreen.dart';
 
-class AppBarWidget extends StatefulWidget {
-  const AppBarWidget({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<AppBarWidget> createState() => _AppBarWidget();
+  State<HomeScreen> createState() => _HomeScreen();
 }
 
-class _AppBarWidget extends State<AppBarWidget> {
+class _HomeScreen extends State<HomeScreen> {
   int _currentIndex = 0;
   String _currentAppBarTitle = "";
 
   // Different screens for BottomNavigatorBar
   final screens = [
-    HomeScreen(),
+    FeedScreen(),
     ChatScreen(),
     ProfileScreen(),
     SettingsScreen(),

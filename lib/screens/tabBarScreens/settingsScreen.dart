@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -6,7 +7,18 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildList(),
+      body: ListView(
+        children: [
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size.fromHeight(50),
+            ),
+            onPressed: () => FirebaseAuth.instance.signOut(),
+            icon: Icon(Icons.arrow_back, size: 32),
+            label: Text('Sign out'),
+          )
+        ],
+      ),
     );
   }
 
