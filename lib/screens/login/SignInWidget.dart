@@ -93,7 +93,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   )
-                ]))
+                ],),)
           ],
         ),
       );

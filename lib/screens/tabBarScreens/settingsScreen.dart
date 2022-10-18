@@ -9,35 +9,18 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(50),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.black,
             ),
             onPressed: () => FirebaseAuth.instance.signOut(),
-            icon: const Icon(Icons.arrow_back, size: 32),
-            label: const Text('Sign out'),
+            child: Text(
+              'Sign Out',
+              style: TextStyle(fontSize: 25),
+            ),
           )
         ],
       ),
     );
   }
-
-  Widget _buildList() => ListView(children: [
-        // TODO Routes for each tile
-        _tile('Test'),
-        _tile('Design'),
-        _tile('Change languegue'),
-        _tile('Sing out'),
-      ]);
-
-  ListTile _tile(String title) => ListTile(
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 20,
-            color: Colors.white,
-          ),
-        ),
-      );
 }
