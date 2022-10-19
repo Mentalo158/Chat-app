@@ -11,8 +11,7 @@ class MainScreen extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          // ignore: unrelated_type_equality_checks
-          if (snapshot.connectionState == ConnectionState) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
