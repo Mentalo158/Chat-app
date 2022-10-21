@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_course/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_course/screens/login/Utils.dart';
+import 'package:flutter_course/screens/models/User.dart';
+import 'dart:convert';
 
 class SignUpWidget extends StatefulWidget {
   final Function() onClickedSignIn;
@@ -76,10 +79,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               const SizedBox(height: 24),
               RichText(
-                  text: TextSpan(
-                      style: const TextStyle(color: Colors.black, fontSize: 20),
-                      text: 'Already have an account?',
-                      children: [
+                text: TextSpan(
+                  style: const TextStyle(color: Colors.black, fontSize: 20),
+                  text: 'Already have an account?',
+                  children: [
                     TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = widget.onClickedSignIn,
@@ -89,7 +92,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                     )
-                  ],),)
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -108,11 +113,19 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     );
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+          )
+          .then(
+            (firebaseUser) => FirebaseFirestore.instance
+                .collection('users')
+                .doc(firebaseUser.user?.uid)
+                .set({'email': firebaseUser.user?.email}),
+          );
     } on FirebaseAuthException catch (e) {
+      // ignore: avoid_print
       print(e);
       // Show error message if email already exists
       Utils.showSnackBar(e.message);
@@ -121,3 +134,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
+
+
+// .then((firebaseUser) => FirebaseFirestore.instance
+//                   .collection('User')
+//                   .doc(firebaseUser.user?.uid)
+//                   .set({
+//                 "email": firebaseUser.user?.email,

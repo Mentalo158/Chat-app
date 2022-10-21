@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/HomeScreen.dart';
 import 'package:flutter_course/screens/login/Utils.dart';
+import 'package:flutter_course/screens/setProfile/setProfile.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
@@ -65,7 +66,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? const HomeScreen()
+      ? setProfile()
       : Scaffold(
           appBar: AppBar(
             title: const Text('Verify Email'),

@@ -80,10 +80,10 @@ class _SignInWidgetState extends State<SignInWidget> {
             ),
             const SizedBox(height: 16),
             RichText(
-                text: TextSpan(
-                    style: const TextStyle(color: Colors.black, fontSize: 20),
-                    text: 'No account?',
-                    children: [
+              text: TextSpan(
+                style: const TextStyle(color: Colors.black, fontSize: 20),
+                text: 'No account?',
+                children: [
                   TextSpan(
                     recognizer: TapGestureRecognizer()
                       ..onTap = widget.onClickedSignUp,
@@ -93,7 +93,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   )
-                ],),)
+                ],
+              ),
+            )
           ],
         ),
       );
