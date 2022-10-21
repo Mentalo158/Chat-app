@@ -43,6 +43,10 @@ dependencies:
   # Email validation
   email_validator: ^2.1.17
 
+  # For formating Dates & Date calculation
+  intl: ^0.17.0
+  jiffy: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

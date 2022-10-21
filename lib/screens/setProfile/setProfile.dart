@@ -2,15 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/HomeScreen.dart';
+import 'package:intl/intl.dart';
 import '../models/User.dart';
 
-// TODO give the user a cancel to stop & unreg button lol
+// TODO give the user a cancel button to stop & unreg button lol
 
-class setProfile extends StatelessWidget {
+class setProfile extends StatefulWidget {
+  @override
+  State<setProfile> createState() => _setProfileState();
+}
+
+class _setProfileState extends State<setProfile> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isUsernameParsed = false;
   final formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
+  final dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => isUsernameParsed
@@ -36,13 +43,42 @@ class setProfile extends StatelessWidget {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
+                      } else {
+                        return null;
                       }
-                      return null;
                     },
                   ),
+                  TextFormField(
+                    controller: dateController,
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.calendar_today_rounded),
+                        labelText: "Select Birthdate"),
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1950),
+                        lastDate: DateTime.now(),
+                      );
+                      if (pickedDate != null) {
+                        setState(() {
+                          dateController.text =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                        });
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Birthday';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  SizedBox(height: 4),
                   ElevatedButton.icon(
                     onPressed: saveProfile,
-                    icon: const Icon(Icons.email_outlined),
+                    icon: const Icon(Icons.save_alt_outlined),
                     label: const Text(
                       'Save Profile',
                       style: TextStyle(fontSize: 24),
