@@ -206,23 +206,3 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   //     await documentUser.set(json);
   // }
 }
-
-
-
-
-//       final user = MyUser(
-//       username: usernameController.text.trim(),
-//       );
-//       final json = user.toJson();
-
-//       await documentUser.set(json);
-// .then((firebaseUser) => FirebaseFirestore.instance
-//                   .collection('User')
-//                   .doc(firebaseUser.user?.uid)
-//                   .set({
-//                 "email": firebaseUser.user?.email,
-
-//  => FirebaseFirestore.instance
-//                 .collection('users')
-//                 .doc(firebaseUser.user?.uid)
-//                 .set({'email': firebaseUser.user?.email}),
