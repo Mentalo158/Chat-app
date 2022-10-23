@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/tabBarScreens/ProfileScreenEdit.dart';
+import 'package:flutter_course/screens/tabBarScreens/ProfilBearbeiten.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -53,11 +53,25 @@ class ProfileScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => ProfileScreenEdit(),
                 ),
+<<<<<<< HEAD
               ),
               child: const Align(
                 alignment: Alignment.center,
                 child: Text(
                   "Edit Profile",
+=======
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfilBearbeiten(),
+                  ),
+                ),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Edit Profile",
+                  ),
+>>>>>>> fd38ebd2a99fb937632f552050379b4c54a1d3f3
                 ),
               ),
             ),
