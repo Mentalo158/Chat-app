@@ -11,64 +11,62 @@ class ProfileScreen extends StatelessWidget {
 
     // TODO change prof look
     return Scaffold(
-      body: Container(
-        child: ListView(
-          children: <Widget>[
-            profileTop(),
-            // TODO change align to positioned?
-            const SizedBox(height: 50),
-            Container(
-              margin: const EdgeInsets.only(left: 30),
-              child: Text(
-                _bioDescription,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: ListView(
+        children: <Widget>[
+          profileTop(),
+          // TODO change align to positioned?
+          const SizedBox(height: 50),
+          Container(
+            margin: const EdgeInsets.only(left: 30),
+            child: Text(
+              _bioDescription,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 5),
-            Container(
-              margin: const EdgeInsets.only(left: 30),
-              child: Text(
-                _bioDescription,
-                // style: TextStyle(color: Colors.white),
-              ),
+          ),
+          const SizedBox(height: 5),
+          Container(
+            margin: const EdgeInsets.only(left: 30),
+            child: Text(
+              _bioDescription,
+              // style: TextStyle(color: Colors.white),
             ),
+          ),
 
-            const SizedBox(height: 50),
-            // TODO Bio box
-            Container(
-              width: double.infinity,
-              height: 30,
-              margin: const EdgeInsets.symmetric(
-                horizontal: 10.0,
+          const SizedBox(height: 50),
+          // TODO Bio box
+          Container(
+            width: double.infinity,
+            height: 30,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue[900],
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[900],
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProfileScreenEdit(),
                 ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ProfileScreenEdit(),
-                  ),
-                ),
-                child: const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Edit Profile",
-                  ),
+              ),
+              child: const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Edit Profile",
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: buildGridView(),
-            )
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: buildGridView(),
+          )
+        ],
       ),
     );
   }

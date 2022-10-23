@@ -66,7 +66,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               TextFormField(
                 controller: dateController,
                 decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today_rounded),
+                    prefixIcon: Icon(Icons.calendar_today_rounded),
                     labelText: "Select Birthdate"),
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
