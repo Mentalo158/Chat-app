@@ -51,27 +51,13 @@ class ProfileScreen extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => ProfileScreenEdit(),
+                  builder: (_) => ProfilBearbeiten(),
                 ),
-<<<<<<< HEAD
               ),
               child: const Align(
                 alignment: Alignment.center,
                 child: Text(
                   "Edit Profile",
-=======
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ProfilBearbeiten(),
-                  ),
-                ),
-                child: const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Edit Profile",
-                  ),
->>>>>>> fd38ebd2a99fb937632f552050379b4c54a1d3f3
                 ),
               ),
             ),
