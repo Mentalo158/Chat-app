@@ -176,6 +176,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             username: usernameController.text.trim(),
             email: emailController.text.trim(),
             birthday: DateTime.parse(dateController.text.trim()),
+            profileImagePath: "users/${value.user!.uid}/profileImages/proImage",
+            profileBannerPath:
+                "users/${value.user!.uid}/profileImages/proBanner",
           );
           final json = user.toJson();
 
