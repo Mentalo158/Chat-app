@@ -19,10 +19,12 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
       File? img = File(image.path);
-      setState(() {
-        _image = img;
-        Navigator.of(context).pop();
-      });
+      setState(
+        () {
+          _image = img;
+          Navigator.of(context).pop();
+        },
+      );
     } on PlatformException catch (e) {
       print(e);
       Navigator.of(context).pop();
@@ -39,18 +41,19 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
         ),
       ),
       builder: (context) => DraggableScrollableSheet(
-          initialChildSize: 0.28,
-          maxChildSize: 0.4,
-          minChildSize: 0.28,
-          expand: false,
-          builder: (context, scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: SelectPhotoOptionsScreen(
-                onTap: _pickImage,
-              ),
-            );
-          }),
+        initialChildSize: 0.28,
+        maxChildSize: 0.4,
+        minChildSize: 0.28,
+        expand: false,
+        builder: (context, scrollController) {
+          return SingleChildScrollView(
+            controller: scrollController,
+            child: SelectPhotoOptionsScreen(
+              onTap: _pickImage,
+            ),
+          );
+        },
+      ),
     );
   }
 

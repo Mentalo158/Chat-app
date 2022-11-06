@@ -6,7 +6,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter_course/screens/login/Utils.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
 
 import 'package:intl/intl.dart';
 
@@ -76,10 +75,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     lastDate: DateTime.now(),
                   );
                   if (pickedDate != null) {
-                    setState(() {
-                      dateController.text =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                    });
+                    setState(
+                      () {
+                        dateController.text =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                      },
+                    );
                   }
                 },
                 validator: (value) {
@@ -166,27 +167,30 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       )
-          .then((value) async {
-        try {
-          final documentUser = FirebaseFirestore.instance
-              .collection('users')
-              .doc(value.user?.uid);
+          .then(
+        (value) async {
+          try {
+            final documentUser = FirebaseFirestore.instance
+                .collection('users')
+                .doc(value.user?.uid);
 
-          final user = MyUser(
-            username: usernameController.text.trim(),
-            email: emailController.text.trim(),
-            birthday: DateTime.parse(dateController.text.trim()),
-            profileImagePath: "users/${value.user!.uid}/profileImages/proImage",
-            profileBannerPath:
-                "users/${value.user!.uid}/profileImages/proBanner",
-          );
-          final json = user.toJson();
+            final user = MyUser(
+              username: usernameController.text.trim(),
+              email: emailController.text.trim(),
+              birthday: DateTime.parse(dateController.text.trim()),
+              profileImagePath:
+                  "users/${value.user!.uid}/profileImages/proImage",
+              profileBannerPath:
+                  "users/${value.user!.uid}/profileImages/proBanner",
+            );
+            final json = user.toJson();
 
-          await documentUser.set(json);
-        } on FirebaseFirestore catch (e) {
-          print(e);
-        }
-      });
+            await documentUser.set(json);
+          } on FirebaseFirestore catch (e) {
+            print(e);
+          }
+        },
+      );
     } on FirebaseAuthException catch (e) {
       // ignore: avoid_print
       print(e);

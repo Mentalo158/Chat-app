@@ -11,8 +11,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
-          key: formKey,
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -36,7 +36,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: emailController,
+                controller: _emailController,
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.done,
                 decoration: const InputDecoration(labelText: 'Email'),
@@ -73,7 +73,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
     try {
       await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailController.text.trim());
+          .sendPasswordResetEmail(email: _emailController.text.trim());
 
       Utils.showSnackBar('Password Reset Email Sent');
       Navigator.of(context).popUntil((route) => route.isFirst);
