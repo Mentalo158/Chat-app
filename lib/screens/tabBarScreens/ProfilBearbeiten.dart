@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'BilderAuswählenOptionen.dart';
 
 class ProfilBearbeiten extends StatefulWidget {
+
   const ProfilBearbeiten({super.key});
 
   @override
@@ -19,18 +21,15 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
       File? img = File(image.path);
-      setState(
-        () {
-          _image = img;
-          Navigator.of(context).pop();
-        },
-      );
+      setState(() {
+        _image = img;
+        Navigator.of(context).pop();
+      });
     } on PlatformException catch (e) {
       print(e);
       Navigator.of(context).pop();
     }
   }
-
   void _showSelectPhotoOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -41,19 +40,18 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
         ),
       ),
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.28,
-        maxChildSize: 0.4,
-        minChildSize: 0.28,
-        expand: false,
-        builder: (context, scrollController) {
-          return SingleChildScrollView(
-            controller: scrollController,
-            child: SelectPhotoOptionsScreen(
-              onTap: _pickImage,
-            ),
-          );
-        },
-      ),
+          initialChildSize: 0.28,
+          maxChildSize: 0.4,
+          minChildSize: 0.28,
+          expand: false,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: SelectPhotoOptionsScreen(
+                onTap: _pickImage,
+              ),
+            );
+          }),
     );
   }
 
@@ -63,7 +61,7 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
       body: SafeArea(
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 20),
+          const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,13 +106,13 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
                           child: Center(
                             child: _image == null
                                 ? const Text(
-                                    'Bild auswählen',
-                                    style: TextStyle(fontSize: 20),
-                                  )
+                              'Bild auswählen',
+                              style: TextStyle(fontSize: 20),
+                            )
                                 : CircleAvatar(
-                                    backgroundImage: FileImage(_image!),
-                                    radius: 200.0,
-                                  ),
+                              backgroundImage: FileImage(_image!),
+                              radius: 200.0,
+                            ),
                           )),
                     ),
                   ),
@@ -122,8 +120,8 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Anonymous',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -131,7 +129,7 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
