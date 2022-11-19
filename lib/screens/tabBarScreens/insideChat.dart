@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/login/AuthScreen.dart';
 import 'package:flutter_course/screens/login/db.dart';
@@ -67,11 +68,12 @@ class InChat extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () async {
+                    final userId = FirebaseAuth.instance.currentUser!.uid;
                     var msg = Nachricht(
                       content: msgCont.text,
                       createAt: Timestamp.now(),
                       reciverUID: user!.uid,
-                      senderUID: AuthScreen().user.uid,
+                      senderUID: userId,
                     );
                       msgCont.clear();
                     await DBfire().sendMessage(msg);
