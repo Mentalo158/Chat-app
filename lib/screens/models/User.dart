@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyUser {
+  String? uid;
   final String username;
   String email;
   DateTime birthday;
@@ -8,6 +9,7 @@ class MyUser {
   String profileBannerPath;
 
   MyUser({
+    this.uid,
     required this.username,
     required this.email,
     required this.birthday,
@@ -16,6 +18,7 @@ class MyUser {
   });
 
   Map<String, dynamic> toJson() => {
+        'uid': uid,
         'username': username,
         'email': email,
         'birthday': birthday,
@@ -24,6 +27,7 @@ class MyUser {
       };
 
   static MyUser fromJson(Map<String, dynamic> json) => MyUser(
+        uid: json['uid'],
         username: json['username'],
         email: json['email'],
         birthday: (json['birthday'] as Timestamp).toDate(),
