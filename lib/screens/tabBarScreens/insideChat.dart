@@ -16,7 +16,7 @@ class InChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(user!.username!),
+        title: Text(user!.username),
         centerTitle: true,
       ),
       body: Column(
@@ -75,7 +75,7 @@ class InChat extends StatelessWidget {
                       reciverUID: user!.uid,
                       senderUID: userId,
                     );
-                      msgCont.clear();
+                    msgCont.clear();
                     await DBfire().sendMessage(msg);
                   },
                   icon: Icon(Icons.send))

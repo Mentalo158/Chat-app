@@ -38,11 +38,11 @@ class ChatScreen extends StatelessWidget {
                             shape: BoxShape.circle, color: Colors.grey),
                         child: Icon(Icons.person),
                       ),
-                      title: Text(user.email!),
+                      title: Text(user.email),
                     );
                   });
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
