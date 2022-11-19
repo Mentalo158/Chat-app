@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyUser {
-  String? username;
-  String? email;
-  DateTime? birthday;
+  final String username;
+  String email;
+  DateTime birthday;
   String profileImagePath;
   String profileBannerPath;
 
   MyUser({
-    this.username,
-    this.email,
-    this.birthday,
+    required this.username,
+    required this.email,
+    required this.birthday,
     this.profileImagePath = '',
     this.profileBannerPath = '',
   });

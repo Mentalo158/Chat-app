@@ -34,12 +34,19 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Image.asset(
-                    'assets/images/imageheader.jpg',
-                    width: double.infinity,
-                    height: 150,
-                    fit: BoxFit.cover,
-                  ),
+                  image != null
+                      ? Image.file(
+                          image!,
+                          height: 150,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                        )
+                      : const Image(
+                          image: AssetImage('assets/images/blankprofile.jpg'),
+                          width: double.infinity,
+                          height: 150,
+                          fit: BoxFit.fill,
+                        ),
                   // TODO CHANGE BUTTON
                   Positioned(
                     right: 5,
@@ -66,7 +73,11 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
                                   image!,
                                   fit: BoxFit.cover,
                                 )
-                              : const FlutterLogo(size: 160),
+                              : const Image(
+                                  image: AssetImage(
+                                      'assets/images/blankprofile.jpg'),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                         Positioned(
                           top: -10,
@@ -181,5 +192,4 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
       print('Failed to pick image: $e');
     }
   }
-  // changeProfileImage() {}
 }
