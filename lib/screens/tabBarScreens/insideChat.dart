@@ -48,12 +48,14 @@ class InChat extends StatelessWidget {
                           );
                         },
                       );
-                    } else
-                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
                   },
                 );
-              } else
-                return Center(child: CircularProgressIndicator());
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
             },
           )),
           Row(
