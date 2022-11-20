@@ -151,7 +151,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       );
 
   Future signUp() async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
@@ -176,7 +175,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 .doc(value.user?.uid);
 
             final user = MyUser(
-              uid: userId,
+              uid: value.user?.uid,
               username: usernameController.text.trim(),
               email: emailController.text.trim(),
               birthday: DateTime.parse(dateController.text.trim()),
