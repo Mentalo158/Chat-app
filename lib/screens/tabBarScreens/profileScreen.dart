@@ -1,134 +1,197 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/tabBarScreens/ProfilBearbeiten.dart';
+import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/ProfileScreenEdit.dart';
-import 'package:flutter_course/screens/tabBarScreens/UploadImage.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
-    String _bioDescription = "Test 123";
-    String _userName = "YeP";
-
-    // TODO change prof look
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          profileTop(),
-          // TODO change align to positioned?
-          const SizedBox(height: 50),
-          Container(
-            margin: const EdgeInsets.only(left: 30),
-            child: Text(
-              _bioDescription,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Container(
-            margin: const EdgeInsets.only(left: 30),
-            child: Text(
-              _bioDescription,
-              // style: TextStyle(color: Colors.white),
-            ),
-          ),
+      body: Column(
+        children: [
+          FutureBuilder(
+            future: readUser(),
+            builder: ((context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong! $snapshot');
+              } else if (snapshot.hasData) {
+                final user = snapshot.data;
 
-          const SizedBox(height: 50),
-          // TODO Bio box
-          Container(
-            width: double.infinity,
-            height: 30,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[900],
-              ),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ProfileScreenEdit(),
-                ),
-              ),
-              child: const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Edit Profile",
-                ),
-              ),
-            ),
+                return user == null
+                    ? const Center(child: Text('No User'))
+                    : Expanded(child: buildUser(user, context));
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }),
           ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: buildGridView(),
-          )
         ],
       ),
     );
   }
 
-  Widget profileTop() {
-    return Stack(
-      clipBehavior: Clip.none,
+  // Get data of current logged in user
+  Future<MyUser?> readUser() async {
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+    final docUser = FirebaseFirestore.instance.collection('users').doc(userid);
+    final snapshot = await docUser.get();
+
+    if (snapshot.exists) {
+      return MyUser.fromJson(snapshot.data()!);
+    } else {
+      return null;
+    }
+  }
+
+  // Build user and present data information
+  Widget buildUser(MyUser user, BuildContext context) {
+    return Column(
       children: [
-        Image.asset(
-          'assets/images/imageheader.jpg',
-          width: double.infinity,
-          height: 150,
-          fit: BoxFit.cover,
+        const SizedBox(
+          height: 20,
         ),
-        // FIXME Align shit doesn't stick to the bottom
-        const Positioned(
-          bottom: -45,
-          left: 5,
-          child: CircleAvatar(
-            radius: 45,
-            backgroundColor: Color(0xFF08172A),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/imageprofile.jpg'),
-              radius: 40,
+        FutureBuilder(
+          future: getImage(user.profileImagePath),
+          builder: ((context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong! $snapshot');
+            } else if (snapshot.hasData) {
+              final image = snapshot.data;
+              return Align(
+                alignment: Alignment.topLeft,
+                child: image != null
+                    ? ClipOval(
+                        child: Image.network(
+                          image,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : const ClipOval(
+                        child: Image(
+                          image: AssetImage('assets/images/blankprofile.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
+        ),
+        SizedBox(
+          height: 18,
+        ),
+        Align(
+          alignment: Alignment(-0.9, 0.0),
+          child: Text(
+            user.username,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
+        const SizedBox(height: 5),
+        Align(
+          alignment: Alignment(-0.9, 0.0),
+          child: Text(
+            user.email,
+            // style: TextStyle(color: Colors.white),
+          ),
+        ),
+
+        const SizedBox(height: 50),
+        // TODO Bio box
+        Container(
+          width: double.infinity,
+          height: 30,
+          margin: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+          ),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue[900],
+            ),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfileScreenEdit(),
+              ),
+            ),
+            child: const Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Edit Profile",
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          child: FutureBuilder(
+            future: getImages(user.imagePaths),
+            builder: ((context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong! $snapshot');
+              } else if (snapshot.hasData) {
+                return Scaffold(
+                  body: _buildGrid(snapshot.data!),
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            }),
+          ),
+        )
       ],
     );
   }
 
-  Widget buildGridView() => GridView.builder(
-        //define how many columns one row has
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          crossAxisCount: 4,
-        ),
-        // disable scrolling and infinite size error
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: 50,
-        itemBuilder: ((context, index) => buildImageCard(index)),
-      );
+  Future<List<String>> getImages(String paths) async {
+    final ref = await FirebaseStorage.instance.ref(paths).listAll();
+    List<String> urls = await Future.wait(ref.items.map((ref) async {
+      return await ref.getDownloadURL();
+    }));
+    return urls;
+  }
 
-  Widget buildImageCard(int index) => Card(
-        margin: EdgeInsets.zero,
-        color: const Color.fromARGB(255, 1, 34, 51),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              'assets/images/imageheader$index.jpg',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      );
+  Widget _buildGrid(List<String> paths) {
+    return RefreshIndicator(
+        onRefresh: () async => setState(() => {}),
+        child: GridView.extent(
+            physics: const NeverScrollableScrollPhysics(),
+            maxCrossAxisExtent: 150,
+            padding: const EdgeInsets.all(4),
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            children: List.generate(
+                paths.length,
+                (i) => GestureDetector(
+                    child: Image.network(paths[i]),
+                    onLongPress: () => _deleteFile(paths[i])))));
+  }
+
+  _deleteFile(String url) {
+    print(url);
+    final filename = url.split('/').last.split('?').first;
+    final ref = FirebaseStorage.instance.ref(filename);
+    ref.delete().then(
+        (_) => setState(() => {})); // delete a file from Cloud Storage bucket
+    print(filename);
+  }
+
+  Future getImage(String path) async {
+    final ref = FirebaseStorage.instance.ref(path);
+    return await ref.getDownloadURL();
+  }
 }

@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'BilderAuswählenOptionen.dart';
 
 class ProfilBearbeiten extends StatefulWidget {
-
   const ProfilBearbeiten({super.key});
 
   @override
@@ -30,6 +29,7 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
       Navigator.of(context).pop();
     }
   }
+
   void _showSelectPhotoOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -61,7 +61,7 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
       body: SafeArea(
         child: Padding(
           padding:
-          const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 20),
+              const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,13 +106,13 @@ class _ProfilBearbeiten extends State<ProfilBearbeiten> {
                           child: Center(
                             child: _image == null
                                 ? const Text(
-                              'Bild auswählen',
-                              style: TextStyle(fontSize: 20),
-                            )
+                                    'Bild auswählen',
+                                    style: TextStyle(fontSize: 20),
+                                  )
                                 : CircleAvatar(
-                              backgroundImage: FileImage(_image!),
-                              radius: 200.0,
-                            ),
+                                    backgroundImage: FileImage(_image!),
+                                    radius: 200.0,
+                                  ),
                           )),
                     ),
                   ),
