@@ -10,6 +10,7 @@ class InChat extends StatelessWidget {
   InChat({Key? key, this.user}) : super(key: key);
   final MyUser? user;
   var msgCont = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +58,17 @@ class InChat extends StatelessWidget {
           Align(
             // Add Validation
             alignment: const Alignment(0.0, 0.0),
-            child: TextFormField(
-              controller: msgCont,
-              decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                      onPressed: _sendMessage, icon: const Icon(Icons.send)),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+            child: Form(
+              key: formKey,
+              child: TextFormField(
+                controller: msgCont,
+                validator: (value) => value!.isEmpty ? "No blank space" : null,
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: _sendMessage, icon: const Icon(Icons.send)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
+              ),
             ),
           ),
         ],
@@ -72,6 +77,9 @@ class InChat extends StatelessWidget {
   }
 
   Future _sendMessage() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
     final userId = FirebaseAuth.instance.currentUser!.uid;
     var msg = Nachricht(
       content: msgCont.text,
