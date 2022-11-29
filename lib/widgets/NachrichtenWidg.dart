@@ -35,7 +35,7 @@ class NachrichtenWid extends StatelessWidget {
                 // mst!.content! sorgt für fehler muss geändert werden(Null Check)
                 msg!.content,
                 textAlign: TextAlign.start,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             Positioned(
