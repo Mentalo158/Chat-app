@@ -18,8 +18,9 @@ class NachrichtenWid extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
-                  color:
-                      msg!.isMe ? Colors.blueAccent : Colors.black.withOpacity(.8),
+                  color: msg!.isMe
+                      ? Colors.blueAccent
+                      : Colors.black.withOpacity(.8),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
@@ -31,22 +32,22 @@ class NachrichtenWid extends StatelessWidget {
               constraints: BoxConstraints(
                   minWidth: 30, minHeight: 40, maxWidth: width / 1.1),
               child: Text(
-                msg!.content!,
+                // mst!.content! sorgt für fehler muss geändert werden(Null Check)
+                msg!.content,
                 textAlign: TextAlign.start,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
               ),
             ),
             Positioned(
-              bottom: 0,
-            right: 0,
-
-            child: Container(
-              padding: EdgeInsets.only(right: 5, bottom: 5),
-              child: Text(
-                "${date.hour}h${date.minute}",
-                style: TextStyle(fontSize: 10, color: Colors.white60),
-              ),
-            ))
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  padding: EdgeInsets.only(right: 5, bottom: 5),
+                  child: Text(
+                    "${date.hour}h${date.minute}",
+                    style: TextStyle(fontSize: 10, color: Colors.white60),
+                  ),
+                ))
           ],
         )
       ],

@@ -38,12 +38,9 @@ class InChat extends StatelessWidget {
                         reverse: true,
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
-                          final msg = messages[index];
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 12),
-                            child: NachrichtenWid(
-                              msg: msg,
-                            ),
+                          final message = messages[index];
+                          return NachrichtenWid(
+                            msg: message,
                           );
                         },
                       );
@@ -57,33 +54,32 @@ class InChat extends StatelessWidget {
               }
             },
           )),
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: msgCont,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                ),
-              ),
-              IconButton(
-                  onPressed: () async {
-                    final userId = FirebaseAuth.instance.currentUser!.uid;
-                    var msg = Nachricht(
-                      content: msgCont.text,
-                      createAt: Timestamp.now(),
-                      reciverUID: user!.uid,
-                      senderUID: userId,
-                    );
-                    msgCont.clear();
-                    await DBfire().sendMessage(msg);
-                  },
-                  icon: Icon(Icons.send))
-            ],
-          )
+          Align(
+            // Add Validation
+            alignment: const Alignment(0.0, 0.0),
+            child: TextFormField(
+              controller: msgCont,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                      onPressed: _sendMessage, icon: const Icon(Icons.send)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future _sendMessage() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    var msg = Nachricht(
+      content: msgCont.text,
+      createAt: Timestamp.now(),
+      reciverUID: user!.uid,
+      senderUID: userId,
+    );
+    msgCont.clear();
+    await DBfire().sendMessage(msg);
   }
 }

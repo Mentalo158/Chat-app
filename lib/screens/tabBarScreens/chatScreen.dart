@@ -3,9 +3,14 @@ import 'package:flutter_course/screens/login/db.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/insideChat.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
