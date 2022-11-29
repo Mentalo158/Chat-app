@@ -13,13 +13,12 @@ class ChatScreen extends StatelessWidget {
         title: Text("Direct Messages"),
       ),
       // Ausgabe der User Liste (noch werden ALLE User angezeigt)
-      // username muss noch angezeigt werden anstatt email
-      //Null Error wenn ich chat anklicke unbedingt fixen
+      // Null Error wenn ich chat anklicke unbedingt fixen
       body: StreamBuilder<List<MyUser>>(
           stream: DBfire().getDiscussionUser,
-          builder: (_, s) {
-            if (s.hasData) {
-              final users = s.data;
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final users = snapshot.data;
               return ListView.builder(
                   itemCount: users!.length,
                   itemBuilder: (ctx, i) {
@@ -38,7 +37,7 @@ class ChatScreen extends StatelessWidget {
                             shape: BoxShape.circle, color: Colors.grey),
                         child: Icon(Icons.person),
                       ),
-                      title: Text(user.email),
+                      title: Text(user.username),
                     );
                   });
             } else {
