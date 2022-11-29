@@ -27,7 +27,7 @@ class ChatScreen extends StatelessWidget {
                     return ListTile(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => InChat(),
+                          builder: (context) => InChat(user: user),
                         ),
                       ),
                       leading: Container(

@@ -201,16 +201,4 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
-
-  //   Future createUser() async {
-  //     final documentUser =
-  //         FirebaseFirestore.instance.collection('users').doc(firebaseUser.user?.uid);
-
-  //     final user = MyUser(
-  //       username: usernameController.text.trim(),
-  //     );
-  //     final json = user.toJson();
-
-  //     await documentUser.set(json);
-  // }
 }
