@@ -185,6 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     print(url);
     final filename = url.split('/').last.split('?').first;
     final ref = FirebaseStorage.instance.ref(filename);
+    print(ref);
     ref.delete().then(
         (_) => setState(() => {})); // delete a file from Cloud Storage bucket
     print(filename);
@@ -192,6 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future getImage(String path) async {
     final ref = FirebaseStorage.instance.ref(path);
+    print(ref);
     return await ref.getDownloadURL();
   }
 }
