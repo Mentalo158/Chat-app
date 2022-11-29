@@ -33,7 +33,7 @@ class NachrichtenWid extends StatelessWidget {
                   minWidth: 30, minHeight: 40, maxWidth: width / 1.1),
               child: Text(
                 // mst!.content! sorgt für fehler muss geändert werden(Null Check)
-                msg!.content,
+                msg!.content!,
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.white),
               ),

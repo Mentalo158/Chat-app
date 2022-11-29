@@ -5,7 +5,7 @@ import 'package:flutter_course/screens/login/AuthScreen.dart';
 import 'package:flutter_course/screens/login/db.dart';
 
 class Nachricht {
-  String content = "";
+  String? content;
   String? uid;
   String? senderUID;
   String? reciverUID;
@@ -14,15 +14,11 @@ class Nachricht {
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
   Nachricht(
-      {required this.content,
-      this.senderUID,
-      this.reciverUID,
-      this.createAt,
-      this.uid});
+      {this.content, this.senderUID, this.reciverUID, this.createAt, this.uid});
 
   Nachricht.fromJson(Map<String, dynamic> json, String id) {
     uid = id;
-    content = json["content"];
+    content = json["conte"];
     senderUID = json["senderUID"];
     reciverUID = json["reciverUID"];
     createAt = json["createAt"];
