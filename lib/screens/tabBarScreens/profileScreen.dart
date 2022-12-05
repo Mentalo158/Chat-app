@@ -139,59 +139,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 10),
-          Expanded(
-            child: FutureBuilder(
-              future: getImages(user.imagePaths),
-              builder: ((context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong! $snapshot');
-                } else if (snapshot.hasData) {
-                  return Scaffold(
-                    body: _buildGrid(snapshot.data!),
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              }),
-            ),
-          )
+          // Expanded(
+          //   child: FutureBuilder(
+          //     future: getImages(user.imagePaths),
+          //     builder: ((context, snapshot) {
+          //       if (snapshot.hasError) {
+          //         return Text('Something went wrong! $snapshot');
+          //       } else if (snapshot.hasData) {
+          //         return Scaffold(
+          //           body: _buildGrid(snapshot.data!),
+          //         );
+          //       }
+          //       return const Center(child: CircularProgressIndicator());
+          //     }),
+          //   ),
+          // )
         ],
       ),
     );
   }
 
-  Future<List<String>> getImages(String paths) async {
-    final ref = await FirebaseStorage.instance.ref(paths).listAll();
-    List<String> urls = await Future.wait(ref.items.map((ref) async {
-      return await ref.getDownloadURL();
-    }));
-    return urls;
-  }
+  // Future<List<String>> getImages(String paths) async {
+  //   final ref = await FirebaseStorage.instance.ref(paths).listAll();
+  //   List<String> urls = await Future.wait(ref.items.map((ref) async {
+  //     return await ref.getDownloadURL();
+  //   }));
+  //   return urls;
+  // }
 
-  Widget _buildGrid(List<String> paths) {
-    return RefreshIndicator(
-        onRefresh: () async => setState(() => {}),
-        child: GridView.extent(
-            physics: const NeverScrollableScrollPhysics(),
-            maxCrossAxisExtent: 150,
-            padding: const EdgeInsets.all(4),
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
-            children: List.generate(
-                paths.length,
-                (i) => GestureDetector(
-                    child: Image.network(paths[i]),
-                    onLongPress: () => _deleteFile(paths[i])))));
-  }
+  // Widget _buildGrid(List<String> paths) {
+  //   return RefreshIndicator(
+  //       onRefresh: () async => setState(() => {}),
+  //       child: GridView.extent(
+  //           physics: const NeverScrollableScrollPhysics(),
+  //           maxCrossAxisExtent: 150,
+  //           padding: const EdgeInsets.all(4),
+  //           mainAxisSpacing: 4,
+  //           crossAxisSpacing: 4,
+  //           children: List.generate(
+  //               paths.length,
+  //               (i) => GestureDetector(
+  //                   child: Image.network(paths[i]),
+  //                   onLongPress: () => _deleteFile(paths[i])))));
+  // }
 
-  _deleteFile(String url) {
-    print(url);
-    final filename = url.split('/').last.split('?').first;
-    final ref = FirebaseStorage.instance.ref(filename);
-    print(ref);
-    ref.delete().then(
-        (_) => setState(() => {})); // delete a file from Cloud Storage bucket
-    print(filename);
-  }
+  // _deleteFile(String url) {
+  //   print(url);
+  //   final filename = url.split('/').last.split('?').first;
+  //   final ref = FirebaseStorage.instance.ref(filename);
+  //   print(ref);
+  //   ref.delete().then(
+  //       (_) => setState(() => {})); // delete a file from Cloud Storage bucket
+  //   print(filename);
+  // }
 
   Future getImage(String path) async {
     final ref = FirebaseStorage.instance.ref(path);

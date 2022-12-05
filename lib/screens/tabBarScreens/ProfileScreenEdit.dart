@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_course/screens/models/User.dart';
-import 'package:flutter_course/screens/tabBarScreens/UploadImage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileScreenEdit extends StatefulWidget {
@@ -42,7 +41,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF091123),
+        backgroundColor: const Color(0xFF091123),
         automaticallyImplyLeading: true,
         title: const Text('Change Profile'),
       ),
@@ -51,7 +50,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Stack(
@@ -87,7 +86,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
                         return const Center(child: CircularProgressIndicator());
                       })),
                   Align(
-                    alignment: Alignment(-0.65, -0.5),
+                    alignment: const Alignment(-0.65, -0.5),
                     child: Positioned(
                       top: -10,
                       right: -10,
@@ -102,11 +101,11 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 18,
               ),
               Align(
-                alignment: Alignment(-0.9, 0.0),
+                alignment: const Alignment(-0.9, 0.0),
                 child: Text(
                   user.username,
                   style: const TextStyle(
@@ -118,7 +117,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
               ),
               const SizedBox(height: 5),
               Align(
-                alignment: Alignment(-0.8, 0.0),
+                alignment: const Alignment(-0.8, 0.0),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
@@ -138,7 +137,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
                           return 'Only 250 letters allowed';
                         }
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -149,7 +148,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: saveUser,
-                  child: Text("Save Profile"),
+                  child: const Text("Save Profile"),
                 ),
               )
             ],
@@ -163,8 +162,8 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
     return ElevatedButton(
       onPressed: editImage,
       style: ButtonStyle(
-        shape: MaterialStateProperty.all(CircleBorder()),
-        padding: MaterialStateProperty.all(EdgeInsets.all(5)),
+        shape: MaterialStateProperty.all(const CircleBorder()),
+        padding: MaterialStateProperty.all(const EdgeInsets.all(5)),
         backgroundColor: MaterialStateProperty.all(Colors.blue), // Button color
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
           (states) {
@@ -187,12 +186,12 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () => pickImage(ImageSource.gallery),
-                  child: Text("Pick Gallery"),
+                  child: const Text("Pick Gallery"),
                 ),
                 const SizedBox(height: 5),
                 ElevatedButton(
                   onPressed: () => pickImage(ImageSource.camera),
-                  child: Text("Pick Camera"),
+                  child: const Text("Pick Camera"),
                 ),
                 const SizedBox(height: 5),
               ],
