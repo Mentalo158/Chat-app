@@ -252,7 +252,7 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
     final userid = FirebaseAuth.instance.currentUser!.uid;
     final docUser = FirebaseFirestore.instance.collection("users").doc(userid);
 
-    docUser.update({"bioDescription": bioController});
+    docUser.update({"bioDescription": bioController.text});
 
     await uploadImage();
     setState(() {});

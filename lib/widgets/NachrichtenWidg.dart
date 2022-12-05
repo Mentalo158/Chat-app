@@ -38,15 +38,16 @@ class NachrichtenWid extends StatelessWidget {
               ),
             ),
             Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.only(right: 5, bottom: 5),
-                  child: Text(
-                    "${date.hour}h${date.minute}",
-                    style: TextStyle(fontSize: 10, color: Colors.white60),
-                  ),
-                ))
+              bottom: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.only(right: 5, bottom: 5),
+                child: Text(
+                  "${date.hour}h${date.minute}",
+                  style: TextStyle(fontSize: 10, color: Colors.white60),
+                ),
+              ),
+            )
           ],
         )
       ],
