@@ -144,11 +144,20 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ElevatedButton(
-                  onPressed: saveUser,
-                  child: const Text("Save Profile"),
+              // save the changes made by the user
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: saveUser,
+                        child: const Text("Save Profile"),
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],
