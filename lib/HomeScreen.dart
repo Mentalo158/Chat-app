@@ -17,10 +17,10 @@ class _HomeScreen extends State<HomeScreen> {
 
   // Different screens for BottomNavigatorBar
   final screens = [
-    FeedScreen(),
-    ChatScreen(),
-    ProfileScreen(),
-    SettingsScreen(),
+    const FeedScreen(),
+    const ChatScreen(),
+    const ProfileScreen(),
+    const SettingsScreen(),
   ];
 
   // Change the appBarTitle with index
@@ -58,21 +58,20 @@ class _HomeScreen extends State<HomeScreen> {
 
     return Scaffold(
       // stateful widgets dont reset after screen change
-      // body: IndexedStack(
-      //   index: currentIndex,
-      //   children: screens,
-      // ),
 
       appBar: AppBar(
-        backgroundColor: Color(0xFF091123),
+        backgroundColor: const Color(0xFF091123),
         automaticallyImplyLeading: false,
         title: Text(
           _currentAppBarTitle,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       // Change pages per Index
-      body: screens[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
@@ -82,12 +81,12 @@ class _HomeScreen extends State<HomeScreen> {
         showUnselectedLabels: false,
         showSelectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFF091123),
+        backgroundColor: const Color(0xFF091123),
         // iconSize: 25,
         // selectedFontSize: 20,
         // unselectedFontSize: 20,
 
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
