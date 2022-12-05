@@ -9,7 +9,7 @@ import 'package:flutter_course/widgets/NachrichtenWidg.dart';
 class InChat extends StatelessWidget {
   InChat({Key? key, this.user}) : super(key: key);
   final MyUser? user;
-  var msgCont = TextEditingController();
+  final msgCont = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override

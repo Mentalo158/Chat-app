@@ -54,106 +54,108 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Build user and present data information
   Widget buildUser(MyUser user, BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        FutureBuilder(
-          future: getImage(user.profileImagePath),
-          builder: ((context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong! $snapshot');
-            } else if (snapshot.hasData) {
-              final image = snapshot.data;
-              return Align(
-                alignment: Alignment.topLeft,
-                child: image != null
-                    ? ClipOval(
-                        child: Image.network(
-                          image,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    : const ClipOval(
-                        child: Image(
-                          image: AssetImage('assets/images/blankprofile.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          }),
-        ),
-        SizedBox(
-          height: 18,
-        ),
-        Align(
-          alignment: Alignment(-0.9, 0.0),
-          child: Text(
-            user.username,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-            ),
+    return Scaffold(
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 20,
           ),
-        ),
-        const SizedBox(height: 5),
-        Align(
-          alignment: Alignment(-0.9, 0.0),
-          child: Text(
-            user.email,
-            // style: TextStyle(color: Colors.white),
-          ),
-        ),
-
-        const SizedBox(height: 50),
-        // TODO Bio box
-        Container(
-          width: double.infinity,
-          height: 30,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue[900],
-            ),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProfileScreenEdit(),
-              ),
-            ),
-            child: const Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Edit Profile",
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Expanded(
-          child: FutureBuilder(
-            future: getImages(user.imagePaths),
+          FutureBuilder(
+            future: getImage(user.profileImagePath),
             builder: ((context, snapshot) {
               if (snapshot.hasError) {
                 return Text('Something went wrong! $snapshot');
               } else if (snapshot.hasData) {
-                return Scaffold(
-                  body: _buildGrid(snapshot.data!),
+                final image = snapshot.data;
+                return Align(
+                  alignment: Alignment.topLeft,
+                  child: image != null
+                      ? ClipOval(
+                          child: Image.network(
+                            image,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : const ClipOval(
+                          child: Image(
+                            image: AssetImage('assets/images/blankprofile.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 );
               }
               return const Center(child: CircularProgressIndicator());
             }),
           ),
-        )
-      ],
+          SizedBox(
+            height: 18,
+          ),
+          Align(
+            alignment: Alignment(-0.9, 0.0),
+            child: Text(
+              user.username,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Align(
+            alignment: Alignment(-0.8, 0.0),
+            child: Text(
+              user.email,
+              // style: TextStyle(color: Colors.white),
+            ),
+          ),
+
+          const SizedBox(height: 50),
+          // TODO Bio box
+          Container(
+            width: double.infinity,
+            height: 30,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue[900],
+              ),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreenEdit(user: user),
+                ),
+              ),
+              child: const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Edit Profile",
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: FutureBuilder(
+              future: getImages(user.imagePaths),
+              builder: ((context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong! $snapshot');
+                } else if (snapshot.hasData) {
+                  return Scaffold(
+                    body: _buildGrid(snapshot.data!),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              }),
+            ),
+          )
+        ],
+      ),
     );
   }
 
