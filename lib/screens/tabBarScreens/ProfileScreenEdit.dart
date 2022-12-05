@@ -24,11 +24,11 @@ class _ProfileScreenEditState extends State<ProfileScreenEdit> {
   File? image;
   final MyUser user;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   bioController.text = user.bioDescription;
-  // }
+  @override
+  void initState() {
+    super.initState();
+    bioController.text = user.bioDescription;
+  }
 
   @override
   void dispose() {

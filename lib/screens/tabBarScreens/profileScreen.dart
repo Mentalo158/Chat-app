@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               } else if (snapshot.hasData) {
                 final image = snapshot.data;
                 return Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment(-0.9, 0),
                   child: image != null
                       ? ClipOval(
                           child: Image.network(
@@ -105,9 +105,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 5),
           Align(
-            alignment: Alignment(-0.8, 0.0),
+            alignment: Alignment(-0.9, 0.0),
             child: Text(
-              user.email,
+              user.bioDescription,
               // style: TextStyle(color: Colors.white),
             ),
           ),

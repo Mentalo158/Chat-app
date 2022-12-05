@@ -18,7 +18,6 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text("Direct Messages"),
       ),
       // Ausgabe der User Liste (noch werden ALLE User angezeigt)
-      // Null Error wenn ich chat anklicke unbedingt fixen
       body: StreamBuilder<List<MyUser>>(
           stream: DBfire().getDiscussionUser,
           builder: (context, snapshot) {
