@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/ProfileScreenEdit.dart';
+// TODO add permission handler? maybe
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
