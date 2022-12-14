@@ -148,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return Text('Something went wrong! $snapshot');
                 } else if (snapshot.hasData) {
                   return Scaffold(
-                    body: _buildGrid(user, snapshot.data!),
+                    body: _buildGrid(snapshot.data!),
                   );
                 }
                 return const Center(child: CircularProgressIndicator());
@@ -168,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return urls;
   }
 
-  Widget _buildGrid(MyUser user, List<String> paths) {
+  Widget _buildGrid(List<String> paths) {
     return RefreshIndicator(
         onRefresh: () async => setState(() => {}),
         child: GridView.extent(
@@ -181,18 +181,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 paths.length,
                 (i) => GestureDetector(
                     child: Image.network(paths[i]),
-                    onLongPress: () => _deleteFile(user, paths[i])))));
+                    onLongPress: () => _deleteFile(paths[i])))));
   }
 
-  _deleteFile(MyUser user, String url) {
-    final filename = Uri.decodeFull(url.split('%2F').last.split('?').first);
-    final ref = FirebaseStorage.instance
-        .ref("users/" + user.uid! + "/images/" + filename);
+  _deleteFile(String url) {
+    print(url);
+    final filename = Uri.decodeFull(url.split('/').last.split('?').first);
+    final ref = FirebaseStorage.instance.ref(filename);
 
     print(ref);
     ref.delete().then(
         (_) => setState(() => {})); // delete a file from Cloud Storage bucket
-    print(filename);
   }
 
   Future getImage(String path) async {
