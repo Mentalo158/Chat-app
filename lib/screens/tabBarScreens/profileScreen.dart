@@ -5,8 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:image_picker/image_picker.dart';
-// TODO add permission handler? maybe
 
+// TODO add permission handler? maybe
+// TODO split uploading images to a new class
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -176,6 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           const SizedBox(height: 10),
+
           Expanded(
             child: FutureBuilder(
               future: getImages(user.imagePaths),
