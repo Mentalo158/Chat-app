@@ -117,9 +117,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 50),
           // TODO if the user is editing return a save button else edit profile
-          Visibility(
-            visible: !isEditing,
-            child: Container(
+          if (!isEditing)
+            Container(
               width: double.infinity,
               height: 30,
               margin: const EdgeInsets.symmetric(
@@ -146,8 +145,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
+            )
+          else
+            Container(
+              width: double.infinity,
+              height: 30,
+              margin: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[900],
+                ),
+                onPressed: () {
+                  isEditing = false;
+                  setState(() {});
+                },
+                // () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => ProfileScreenEdit(user: user),
+                //   ),
+                // ),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Save Profile",
+                  ),
+                ),
+              ),
             ),
-          ),
           const SizedBox(height: 10),
           Expanded(
             child: FutureBuilder(
