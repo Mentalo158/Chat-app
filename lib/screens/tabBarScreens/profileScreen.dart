@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/User.dart';
-import 'package:flutter_course/screens/tabBarScreens/ProfileScreenEdit.dart';
 import 'package:image_picker/image_picker.dart';
 // TODO add permission handler? maybe
 
@@ -73,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               } else if (snapshot.hasData) {
                 final image = snapshot.data;
                 return Align(
-                  alignment: Alignment(-0.9, 0),
+                  alignment: const Alignment(-0.9, 0),
                   child: image != null
                       ? ClipOval(
                           child: Image.network(
@@ -94,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return const Center(child: CircularProgressIndicator());
             }),
           ),
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
           Align(
@@ -117,8 +116,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 50),
-          if (!isEditing)
-            Container(
+          // TODO if the user is editing return a save button else edit profile
+          Visibility(
+            visible: !isEditing,
+            child: Container(
               width: double.infinity,
               height: 30,
               margin: const EdgeInsets.symmetric(
@@ -131,7 +132,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () {
                   isEditing = true;
                   setState(() {});
-                  print(isEditing);
                 },
                 // () => Navigator.push(
                 //   context,
@@ -147,6 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
+          ),
           const SizedBox(height: 10),
           Expanded(
             child: FutureBuilder(
@@ -156,13 +157,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return Text('Something went wrong! $snapshot');
                 } else if (snapshot.hasData) {
                   return Scaffold(
-                    body: _buildGrid(snapshot.data!),
-                    floatingActionButton: FloatingActionButton(
-                        onPressed: () {
-                          pickImage(context, user);
-                        },
-                        child: Icon(Icons.add_a_photo)),
-                  );
+                      body: _buildGrid(snapshot.data!),
+                      floatingActionButton: Visibility(
+                        visible: isEditing,
+                        child: FloatingActionButton(
+                            onPressed: () {
+                              pickImage(context, user);
+                            },
+                            child: Icon(Icons.add_a_photo)),
+                      ));
                 }
                 return const Center(child: CircularProgressIndicator());
               }),
