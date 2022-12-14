@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/ProfileScreenEdit.dart';
+import 'package:image_picker/image_picker.dart';
 // TODO add permission handler? maybe
 
 class ProfileScreen extends StatefulWidget {
@@ -14,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  var isEditing = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,33 +116,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // style: TextStyle(color: Colors.white),
             ),
           ),
-
           const SizedBox(height: 50),
-          // TODO Bio box
-          Container(
-            width: double.infinity,
-            height: 30,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[900],
+          if (!isEditing)
+            Container(
+              width: double.infinity,
+              height: 30,
+              margin: const EdgeInsets.symmetric(
+                horizontal: 10.0,
               ),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreenEdit(user: user),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[900],
+                ),
+                onPressed: () {
+                  isEditing = true;
+                  setState(() {});
+                  print(isEditing);
+                },
+                // () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => ProfileScreenEdit(user: user),
+                //   ),
+                // ),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Edit Profile",
+                  ),
                 ),
               ),
-              child: const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Edit Profile",
-                ),
-              ),
             ),
-          ),
           const SizedBox(height: 10),
           Expanded(
             child: FutureBuilder(
@@ -149,6 +157,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 } else if (snapshot.hasData) {
                   return Scaffold(
                     body: _buildGrid(snapshot.data!),
+                    floatingActionButton: FloatingActionButton(
+                        onPressed: () {
+                          pickImage(context, user);
+                        },
+                        child: Icon(Icons.add_a_photo)),
                   );
                 }
                 return const Center(child: CircularProgressIndicator());
@@ -158,6 +171,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  Future<dynamic> pickImage(BuildContext context, MyUser user) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 180,
+          color: Colors.amber,
+          child: Column(
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () =>
+                    uploadImage(user.imagePaths, ImageSource.gallery),
+                child: const Text("Pick Gallery"),
+              ),
+              const SizedBox(height: 5),
+              ElevatedButton(
+                onPressed: () =>
+                    uploadImage(user.imagePaths, ImageSource.camera),
+                child: const Text("Pick Camera"),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  uploadImage(url, ImageSource source) async {
+    final selectedImage = await ImagePicker().pickImage(source: source);
+    if (selectedImage != null) {
+      File file = File(selectedImage.path);
+      _uploadFile(file, url).then((_) => setState(() => {}));
+    }
   }
 
   Future<List<String>> getImages(String paths) async {
@@ -184,12 +233,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onLongPress: () => _deleteFile(paths[i])))));
   }
 
+  Future<String> _uploadFile(File file, String url) async {
+    final filename = file.path.split('/').last;
+    final imagepath = "$url$filename";
+    final ref = FirebaseStorage.instance.ref(imagepath);
+    print(ref);
+    await ref.putFile(file); // upload file to Cloud Storage bucket
+    return ref.getDownloadURL().toString();
+  }
+
   _deleteFile(String url) {
-    print(url);
     final filename = Uri.decodeFull(url.split('/').last.split('?').first);
     final ref = FirebaseStorage.instance.ref(filename);
 
-    print(ref);
     ref.delete().then(
         (_) => setState(() => {})); // delete a file from Cloud Storage bucket
   }
