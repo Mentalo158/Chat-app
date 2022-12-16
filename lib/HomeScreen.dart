@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   int _currentIndex = 0;
   String _currentAppBarTitle = "";
+  var barColor = Color(0xFF111111);
 
   // Different screens for BottomNavigatorBar
   final screens = [
@@ -60,7 +61,7 @@ class _HomeScreen extends State<HomeScreen> {
       // stateful widgets dont reset after screen change
 
       appBar: AppBar(
-        backgroundColor: const Color(0xFF091123),
+        backgroundColor: barColor,
         automaticallyImplyLeading: false,
         title: Text(
           _currentAppBarTitle,
@@ -75,13 +76,12 @@ class _HomeScreen extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
-
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showUnselectedLabels: false,
         showSelectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF091123),
+        backgroundColor: barColor,
         // iconSize: 25,
         // selectedFontSize: 20,
         // unselectedFontSize: 20,

@@ -21,25 +21,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          FutureBuilder(
-            future: readUser(),
-            builder: ((context, snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong! $snapshot');
-              } else if (snapshot.hasData) {
-                final user = snapshot.data;
+      body: FutureBuilder(
+        future: readUser(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong! $snapshot');
+          } else if (snapshot.hasData) {
+            final user = snapshot.data;
 
-                return user == null
-                    ? const Center(child: Text('No User'))
-                    : Expanded(child: buildUser(user, context));
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }),
-          ),
-        ],
+            return user == null
+                ? const Center(child: Text('No User'))
+                : buildUser(user, context);
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        }),
       ),
     );
   }
@@ -60,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // Build user and present data information
   Widget buildUser(MyUser user, BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(
             height: 20,
@@ -178,28 +174,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           const SizedBox(height: 10),
 
-          Expanded(
-            child: FutureBuilder(
-              future: getImages(user.imagePaths),
-              builder: ((context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong! $snapshot');
-                } else if (snapshot.hasData) {
-                  return Scaffold(
-                      body: _buildGrid(snapshot.data!),
-                      floatingActionButton: Visibility(
-                        visible: isEditing,
-                        child: FloatingActionButton(
-                            onPressed: () {
-                              pickImage(context, user);
-                            },
-                            child: Icon(Icons.add_a_photo)),
-                      ));
-                }
-                return const Center(child: CircularProgressIndicator());
-              }),
+          FutureBuilder(
+            future: getImages(user.imagePaths),
+            builder: ((context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong! $snapshot');
+              } else if (snapshot.hasData) {
+                return _buildGrid(snapshot.data!);
+              }
+              return const Center(child: CircularProgressIndicator());
+            }),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              onPressed: () {
+                pickImage(context, user);
+              },
+              child: Icon(Icons.add_a_photo),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -251,25 +245,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildGrid(List<String> paths) {
     return RefreshIndicator(
-        onRefresh: () async => setState(() => {}),
-        child: GridView.extent(
-            physics: const NeverScrollableScrollPhysics(),
-            maxCrossAxisExtent: 150,
-            padding: const EdgeInsets.all(4),
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
-            children: List.generate(
-                paths.length,
-                (i) => GestureDetector(
-                    child: Image.network(paths[i]),
-                    onLongPress: () => _deleteFile(paths[i])))));
+      onRefresh: () async => setState(() => {}),
+      child: GridView.extent(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        maxCrossAxisExtent: 150,
+        padding: const EdgeInsets.all(4),
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        children: List.generate(
+          paths.length,
+          (i) => GestureDetector(
+            child: Image.network(paths[i]),
+            onLongPress: () => _deleteFile(paths[i]),
+          ),
+        ),
+      ),
+    );
   }
 
   Future<String> _uploadFile(File file, String url) async {
     final filename = file.path.split('/').last;
     final imagepath = "$url$filename";
     final ref = FirebaseStorage.instance.ref(imagepath);
-    print(ref);
+
     await ref.putFile(file); // upload file to Cloud Storage bucket
     return ref.getDownloadURL().toString();
   }
@@ -284,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future getImage(String path) async {
     final ref = FirebaseStorage.instance.ref(path);
-    print(ref);
+
     return await ref.getDownloadURL();
   }
 }

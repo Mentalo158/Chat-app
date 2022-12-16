@@ -13,7 +13,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-  var currentBackgroundcolor = Colors.white;
+  var currentBackgroundcolor = Color(0xFF1e1e1e);
 
   @override
   Widget build(BuildContext context) {
