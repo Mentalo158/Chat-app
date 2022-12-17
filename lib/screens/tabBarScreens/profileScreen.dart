@@ -16,7 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  var isEditing = false;
+  bool isEditing = false;
+  Color buttonColor = const Color(0xFF4d4d4d);
 
   @override
   Widget build(BuildContext context) {
@@ -65,27 +66,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
             future: getImage(user.profileImagePath),
             builder: ((context, snapshot) {
               if (snapshot.hasError) {
-                return Text('Something went wrong! $snapshot');
+                return const Align(
+                  alignment: Alignment(-0.9, 0),
+                  child: ClipOval(
+                      child: Image(
+                    width: 100,
+                    height: 100,
+                    image: AssetImage('assets/images/blankprofile.jpg'),
+                    fit: BoxFit.cover,
+                  )),
+                );
               } else if (snapshot.hasData) {
                 final image = snapshot.data;
                 return Align(
-                  alignment: const Alignment(-0.9, 0),
-                  child: image != null
-                      ? ClipOval(
-                          child: Image.network(
-                            image,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : const ClipOval(
-                          child: Image(
-                            image: AssetImage('assets/images/blankprofile.jpg'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                );
+                    alignment: const Alignment(-0.9, 0),
+                    child: ClipOval(
+                      child: Image.network(
+                        image,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ));
               }
               return const Center(child: CircularProgressIndicator());
             }),
@@ -94,11 +96,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 18,
           ),
           Align(
-            alignment: Alignment(-0.9, 0.0),
+            alignment: const Alignment(-0.9, 0.0),
             child: Text(
               user.username,
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
@@ -106,10 +108,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 5),
           Align(
-            alignment: Alignment(-0.9, 0.0),
+            alignment: const Alignment(-0.9, 0.0),
             child: Text(
               user.bioDescription,
               // style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           const SizedBox(height: 50),
@@ -123,7 +126,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[900],
+                  // TODO Change color
+                  backgroundColor: buttonColor,
                 ),
                 onPressed: () {
                   isEditing = true;
@@ -191,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onPressed: () {
                 pickImage(context, user);
               },
-              child: Icon(Icons.add_a_photo),
+              child: const Icon(Icons.add_a_photo),
             ),
           ),
         ],
@@ -268,14 +272,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final filename = file.path.split('/').last;
     final imagepath = "$url$filename";
     final ref = FirebaseStorage.instance.ref(imagepath);
-
     await ref.putFile(file); // upload file to Cloud Storage bucket
     return ref.getDownloadURL().toString();
   }
 
   _deleteFile(String url) {
+    print(url);
     final filename = Uri.decodeFull(url.split('/').last.split('?').first);
     final ref = FirebaseStorage.instance.ref(filename);
+    print(ref);
 
     ref.delete().then(
         (_) => setState(() => {})); // delete a file from Cloud Storage bucket
