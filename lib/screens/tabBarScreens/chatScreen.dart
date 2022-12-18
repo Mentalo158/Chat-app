@@ -35,10 +35,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       leading: Container(
                         alignment: Alignment.center,
-                        height: 60,
-                        width: 60,
+                        height: 55,
+                        width: 55,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.grey),
+                            shape: BoxShape.circle, color: Colors.white),
                         child: Icon(Icons.person),
                       ),
                       title: Text(user.username),
