@@ -9,14 +9,14 @@ import 'package:image_picker/image_picker.dart';
 
 // TODO add permission handler? maybe
 // TODO split uploading images to a new class
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class MyProfileScreen extends StatefulWidget {
+  const MyProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<MyProfileScreen> createState() => _MyProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _MyProfileScreenState extends State<MyProfileScreen> {
   bool isEditing = false;
   Color buttonColor = const Color(0xFF4d4d4d);
   final bioController = TextEditingController();

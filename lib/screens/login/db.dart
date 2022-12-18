@@ -4,14 +4,17 @@ import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
 
 class DBfire {
-  var userCol = FirebaseFirestore.instance.collection("users");
-  var msgCol = FirebaseFirestore.instance.collection("Nachrichten");
   final userId = FirebaseAuth.instance.currentUser!.uid;
+
+  final userCol = FirebaseFirestore.instance.collection("users");
+  final msgCol = FirebaseFirestore.instance.collection("Nachrichten");
 
   saveUser(MyUser user) async {
     try {
       await userCol.doc(user.uid).set(user.toJson());
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   Stream<List<MyUser>> get getDiscussionUser {
