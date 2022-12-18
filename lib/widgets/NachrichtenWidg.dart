@@ -16,11 +16,11 @@ class NachrichtenWid extends StatelessWidget {
         Stack(
           children: [
             Container(
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.only(right: 30, left: 20, top: 5),
               decoration: BoxDecoration(
                   color: msg.isMe
                       ? Colors.blueAccent
-                      : Colors.black.withOpacity(.8),
+                      : Colors.white.withOpacity(.8),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
@@ -44,7 +44,7 @@ class NachrichtenWid extends StatelessWidget {
                 padding: EdgeInsets.only(right: 5, bottom: 5),
                 child: Text(
                   "${date.hour}h${date.minute}",
-                  style: TextStyle(fontSize: 10, color: Colors.white60),
+                  style: TextStyle(fontSize: 10, color: Colors.white),
                 ),
               ),
             )

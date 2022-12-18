@@ -18,6 +18,7 @@ class DBfire {
   }
 
   Stream<List<MyUser>> get getDiscussionUser {
+    //Filtert den eigenen User aus der Liste aus
     return userCol.where("uid", isNotEqualTo: userId).snapshots().map(
         (event) => event.docs.map((e) => MyUser.fromJson(e.data())).toList());
   }
