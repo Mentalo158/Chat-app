@@ -18,7 +18,7 @@ class DBfire {
   }
 
   Stream<List<MyUser>> get getDiscussionUser {
-    return userCol.snapshots().map(
+    return userCol.where("uid", isNotEqualTo: userId).snapshots().map(
         (event) => event.docs.map((e) => MyUser.fromJson(e.data())).toList());
   }
 

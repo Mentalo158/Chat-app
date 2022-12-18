@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/tabBarScreens/ChatScreen.dart';
-import 'screens/tabBarScreens/ProfileScreen.dart';
+import 'screens/tabBarScreens/MyProfileScreen.dart';
 import 'screens/tabBarScreens/SettingsScreen.dart';
 import 'screens/tabBarScreens/FeedScreen.dart';
 
@@ -20,7 +20,7 @@ class _HomeScreen extends State<HomeScreen> {
   final screens = [
     const FeedScreen(),
     const ChatScreen(),
-    const ProfileScreen(),
+    const MyProfileScreen(),
     const SettingsScreen(),
   ];
 
