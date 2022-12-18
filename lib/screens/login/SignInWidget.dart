@@ -32,15 +32,12 @@ class _SignInWidgetState extends State<SignInWidget> {
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child:
-        Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
             Image(
-              image: AssetImage(
-                  'assets/images/Logo.jpg'
-              ),
+              image: AssetImage('assets/images/Logo.jpg'),
             ),
             const SizedBox(height: 40),
             TextField(
@@ -49,7 +46,7 @@ class _SignInWidgetState extends State<SignInWidget> {
               // style: TextStyle(color: Colors.white),
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
-                  filled: true, 
+                  filled: true,
                   fillColor: Colors.white30,
                   labelText: 'Email',
                   labelStyle: TextStyle(color: Colors.white)),
@@ -68,8 +65,8 @@ class _SignInWidgetState extends State<SignInWidget> {
             const SizedBox(height: 140),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
+                  minimumSize: const Size.fromHeight(50),
+                  backgroundColor: Color(0xFF4d4d4d)),
               onPressed: signIn,
               icon: const Icon(Icons.lock_open, size: 32),
               label: const Text(

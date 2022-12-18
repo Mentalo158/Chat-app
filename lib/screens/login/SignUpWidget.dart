@@ -133,8 +133,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               const SizedBox(height: 30),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
-                ),
+                    minimumSize: const Size.fromHeight(50),
+                    backgroundColor: Color(0xFF4d4d4d)),
                 onPressed: signUp,
                 icon: const Icon(Icons.lock_open, size: 32),
                 label: const Text(

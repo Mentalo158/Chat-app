@@ -53,6 +53,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               const SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: resetPassword,
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF4d4d4d)),
                 icon: const Icon(Icons.email_outlined),
                 label: const Text(
                   'Reset Password',
