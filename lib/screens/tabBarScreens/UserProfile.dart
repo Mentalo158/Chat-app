@@ -14,7 +14,10 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: Text(widget.user!.username),
+      ),
       body: ListView(
         children: [
           const SizedBox(
