@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
 import 'package:flutter_course/screens/login/db.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/UserProfile.dart';
@@ -35,18 +36,31 @@ class _ChatScreenState extends State<ChatScreen> {
                           builder: (context) => InChat(user: user),
                         ),
                       ),
-                      leading: Container(
-                        alignment: Alignment.center,
-                        height: 55,
-                        width: 55,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.white),
-                        child: GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        UserProfile(user: user))),
-                            child: Icon(Icons.person)),
+                      leading: FutureBuilder(
+                        future: ImageLoader.getImage(user.profileImagePath),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            ClipOval(
+                              child: Image.network(
+                                snapshot.data,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            const ClipOval(
+                                child: Image(
+                              width: 100,
+                              height: 100,
+                              image:
+                                  AssetImage('assets/images/blankprofile.jpg'),
+                              fit: BoxFit.cover,
+                            ));
+                          }
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
                       ),
                       title: Text(
                         user.username,
