@@ -5,6 +5,7 @@ import 'package:flutter_course/main.dart';
 import 'package:flutter_course/screens/login/ForgotPasswordScreen.dart';
 import 'package:flutter_course/screens/login/Utils.dart';
 
+// SingInWidget
 class SignInWidget extends StatefulWidget {
   final VoidCallback onClickedSignUp;
 
@@ -36,7 +37,7 @@ class _SignInWidgetState extends State<SignInWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            Image(
+            const Image(
               image: AssetImage('assets/images/Logo.jpg'),
             ),
             const SizedBox(height: 40),
@@ -66,7 +67,7 @@ class _SignInWidgetState extends State<SignInWidget> {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: Color(0xFF4d4d4d)),
+                  backgroundColor: const Color(0xFF4d4d4d)),
               onPressed: signIn,
               icon: const Icon(Icons.lock_open, size: 32),
               label: const Text(
@@ -86,7 +87,7 @@ class _SignInWidgetState extends State<SignInWidget> {
               ),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ForgotPasswordScreen(),
+                  builder: (context) => const ForgotPasswordScreen(),
                 ),
               ),
             ),
@@ -113,6 +114,7 @@ class _SignInWidgetState extends State<SignInWidget> {
       );
 
   Future signIn() async {
+    // Loading indicator
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -121,6 +123,7 @@ class _SignInWidgetState extends State<SignInWidget> {
       ),
     );
 
+    //
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -128,10 +131,10 @@ class _SignInWidgetState extends State<SignInWidget> {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
-
       Utils.showSnackBar(e.message);
     }
 
+    // Hide Showdialog when loading is done
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

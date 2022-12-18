@@ -98,7 +98,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   }
                 },
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               TextFormField(
                 controller: emailController,
                 cursorColor: Colors.white,
@@ -134,7 +134,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    backgroundColor: Color(0xFF4d4d4d)),
+                    backgroundColor: const Color(0xFF4d4d4d)),
                 onPressed: signUp,
                 icon: const Icon(Icons.lock_open, size: 32),
                 label: const Text(
@@ -166,9 +166,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       );
 
   Future signUp() async {
+    // Fullfill certain criteriums before signing up
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
+    // Show loading indicator
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -182,6 +184,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       )
+          // Create a user Document when registering
           .then(
         (value) async {
           try {
@@ -189,6 +192,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 .collection('users')
                 .doc(value.user?.uid);
 
+            // Set typed user information in Firestore
             final user = MyUser(
               uid: value.user!.uid,
               username: usernameController.text.trim(),
@@ -214,6 +218,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       Utils.showSnackBar(e.message);
     }
 
+    // Hide loading indicator when its done
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

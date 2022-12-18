@@ -76,7 +76,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             builder: ((context, snapshot) {
               if (snapshot.hasError) {
                 return Align(
-                  alignment: Alignment(-0.9, 0),
+                  alignment: const Alignment(-0.9, 0),
                   child: Stack(
                     children: [
                       const ClipOval(
@@ -96,7 +96,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             onPressed: (() {
                               pickImage(context, user.profileImagePath, false);
                             }),
-                            icon: Icon(Icons.add_a_photo),
+                            icon: const Icon(Icons.add_a_photo),
                           ),
                         ),
                     ],
@@ -129,7 +129,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             onPressed: (() {
                               pickImage(context, user.profileImagePath, false);
                             }),
-                            icon: Icon(Icons.add_a_photo),
+                            icon: const Icon(Icons.add_a_photo),
                           ),
                         ),
                     ],
@@ -171,7 +171,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               maxLength: 250,
               controller: bioController,
               textInputAction: TextInputAction.done,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               decoration: const InputDecoration(
                   counterStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(),

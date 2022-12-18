@@ -7,7 +7,7 @@ import 'package:flutter_course/screens/models/nachrichten.dart';
 import 'package:flutter_course/widgets/NachrichtenWidg.dart';
 
 class InChat extends StatefulWidget {
-  InChat({Key? key, this.user}) : super(key: key);
+  const InChat({Key? key, this.user}) : super(key: key);
   final MyUser? user;
 
   @override
@@ -69,7 +69,7 @@ class _InChatState extends State<InChat> {
             child: Form(
               key: formKey,
               child: TextFormField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 controller: msgCont,
                 validator: (value) => value!.isEmpty ? "No blank space" : null,
                 decoration: InputDecoration(
@@ -81,7 +81,8 @@ class _InChatState extends State<InChat> {
                         )),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(width: 1, color: Colors.white),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.white),
                     )),
               ),
             ),

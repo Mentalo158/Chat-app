@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// The utils shows the user errors
+// If for instance the user tries register with an email that is already registered
 class Utils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
 

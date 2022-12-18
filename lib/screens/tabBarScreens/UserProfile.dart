@@ -54,7 +54,7 @@ class _UserProfileState extends State<UserProfile> {
               return const Center(child: CircularProgressIndicator());
             }),
           ),
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
           Align(
@@ -68,7 +68,7 @@ class _UserProfileState extends State<UserProfile> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Align(
@@ -79,7 +79,7 @@ class _UserProfileState extends State<UserProfile> {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 60,
           ),
           FutureBuilder(

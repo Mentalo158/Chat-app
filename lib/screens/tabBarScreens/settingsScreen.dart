@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
             onPressed: () => FirebaseAuth.instance.signOut(),
-            child: Text(
+            child: const Text(
               'Sign Out',
               style: TextStyle(fontSize: 25),
             ),

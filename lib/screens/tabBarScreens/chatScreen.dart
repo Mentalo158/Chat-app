@@ -64,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                             title: Text(
                               user.username,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           );
                         } else if (snapshot.hasError) {
@@ -91,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                             title: Text(
                               user.username,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           );
                         }
@@ -109,40 +109,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-
-
-
-                      // onTap: () => Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => InChat(user: user),
-                      //   ),
-                      // ),
-                      // leading: FutureBuilder(
-                      //   future: ImageLoader.getImage(user.profileImagePath),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.hasData) {
-                      //       final image = snapshot.data;
-                      //       ClipOval(
-                      //         child: Image.network(
-                      //           image,
-                      //           width: 100,
-                      //           height: 100,
-                      //           fit: BoxFit.cover,
-                      //         ),
-                      //       );
-                      //     } else if (snapshot.hasError) {
-                      //       const ClipOval(
-                      //           child: Image(
-                      //         width: 100,
-                      //         height: 100,
-                      //         image:
-                      //             AssetImage('assets/images/blankprofile.jpg'),
-                      //         fit: BoxFit.cover,
-                      //       ));
-                      //     }
-                      //     return const Center(
-                      //         child: CircularProgressIndicator());
-                      //   },
-                      // ),
-
-                      // GestureDetector( onTap: () => Navigator.of(context).push( MaterialPageRoute( builder: (context) => UserProfile(user: user))), child: Icon(Icons.person)),

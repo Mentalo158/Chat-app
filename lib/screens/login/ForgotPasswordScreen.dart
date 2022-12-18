@@ -69,6 +69,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Future resetPassword() async {
+    // Loading indicator
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -82,6 +83,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           .sendPasswordResetEmail(email: _emailController.text.trim());
 
       Utils.showSnackBar('Password Reset Email Sent');
+      // Hide loading indicator when its done
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       print(e);

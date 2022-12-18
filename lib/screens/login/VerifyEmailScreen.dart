@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/HomeScreen.dart';
 import 'package:flutter_course/screens/login/Utils.dart';
 
+// The VerifyEmailScreen is skipped when the user is already verified
+// The class sends an email to the user when verifying
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
 
@@ -15,6 +17,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   bool isEmailVerified = false;
   bool canResendEmail = false;
   Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +53,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     if (isEmailVerified) timer?.cancel();
   }
 
+  // This Method sends an email to the user for verifying
+  // It has a Timer to stop the user from spamming emails
   Future sendVerificationEmail() async {
     try {
       final user = FirebaseAuth.instance.currentUser!;
@@ -63,6 +68,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     }
   }
 
+  // If verified grant access to HomeScreen
   @override
   Widget build(BuildContext context) => isEmailVerified
       ? const HomeScreen()

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/login/AuthScreen.dart';
 import 'package:flutter_course/screens/login/VerifyEmailScreen.dart';
 
+// The MainScreen checks the current auth state of the user and decides which screen to show
+// If the user is Registred he will grant access to HomeScreen through the VerifyEmailScreen class
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
   @override

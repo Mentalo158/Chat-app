@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 
+// ImageLoader fetches the file Url or multiple Url`s from Firestorage
 class ImageLoader {
   static Future getImage(String path) async {
     final ref = FirebaseStorage.instance.ref(path);

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types113
-
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
 
