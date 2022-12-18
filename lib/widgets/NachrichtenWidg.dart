@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
-
+/*
+A widget for the messages.
+ */
 class NachrichtenWid extends StatelessWidget {
   const NachrichtenWid({Key? key, required this.msg}) : super(key: key);
   final Nachricht msg;
@@ -13,6 +15,7 @@ class NachrichtenWid extends StatelessWidget {
       mainAxisAlignment:
           msg.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
+        //A Stack to output the messages from top to bottom
         Stack(
           children: [
             Container(
@@ -20,7 +23,7 @@ class NachrichtenWid extends StatelessWidget {
               decoration: BoxDecoration(
                   color: msg.isMe
                       ? Colors.blueAccent
-                      : Colors.white.withOpacity(.8),
+                      : Colors.black.withOpacity(.8),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
