@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+/*
+All relevant Attributes which are part of the User will be stored in this class
+ */
 class MyUser {
   String uid;
   String username;
@@ -21,6 +23,7 @@ class MyUser {
     this.imagePaths = '',
   });
 
+  // Converts the data into Json
   Map<String, dynamic> toJson() => {
         'uid': uid,
         'username': username,
@@ -31,7 +34,7 @@ class MyUser {
         'profileBannerPath': profileBannerPath,
         'imagePaths': imagePaths,
       };
-
+  // "Fetches" the Data/Information from the Json
   static MyUser fromJson(Map<String, dynamic> json) => MyUser(
         uid: json['uid'],
         username: json['username'],
