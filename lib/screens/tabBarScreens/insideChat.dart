@@ -6,28 +6,35 @@ import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
 import 'package:flutter_course/widgets/NachrichtenWidg.dart';
 
-class InChat extends StatelessWidget {
+class InChat extends StatefulWidget {
   InChat({Key? key, this.user}) : super(key: key);
   final MyUser? user;
+
+  @override
+  State<InChat> createState() => _InChatState();
+}
+
+class _InChatState extends State<InChat> {
   final msgCont = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(user!.username),
+        title: Text(widget.user!.username),
         centerTitle: true,
       ),
       body: Column(
         children: [
           Expanded(
               child: StreamBuilder<List<Nachricht>>(
-            stream: DBfire().getMessage(user!.uid),
+            stream: DBfire().getMessage(widget.user!.uid),
             builder: (context, s1) {
               if (s1.hasData) {
                 return StreamBuilder<List<Nachricht>>(
-                  stream: DBfire().getMessage(user!.uid, false),
+                  stream: DBfire().getMessage(widget.user!.uid, false),
                   builder: (context, s2) {
                     if (s2.hasData) {
                       var messages = [...s1.data!, ...s2.data!];
@@ -84,7 +91,7 @@ class InChat extends StatelessWidget {
     var msg = Nachricht(
       content: msgCont.text,
       createAt: Timestamp.now(),
-      reciverUID: user!.uid,
+      reciverUID: widget.user!.uid,
       senderUID: userId,
     );
     msgCont.clear();

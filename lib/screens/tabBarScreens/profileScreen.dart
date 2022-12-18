@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -73,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 20,
           ),
           FutureBuilder(
-            future: getImage(user.profileImagePath),
+            future: ImageLoader.getImage(user.profileImagePath),
             builder: ((context, snapshot) {
               if (snapshot.hasError) {
                 return Align(
@@ -160,7 +161,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               alignment: const Alignment(-0.9, 0.0),
               child: Text(
                 user.bioDescription,
-                // style: TextStyle(color: Colors.white),
                 style: const TextStyle(color: Colors.white),
               ),
             )
@@ -234,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 10),
 
           FutureBuilder(
-            future: getImages(user.imagePaths),
+            future: ImageLoader.getImages(user.imagePaths),
             builder: ((context, snapshot) {
               if (snapshot.hasError) {
                 return Text('Something went wrong! $snapshot');
@@ -287,22 +287,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  uploadImage(url, ImageSource source, isProfileImage) async {
-    final selectedImage = await ImagePicker().pickImage(source: source);
-    if (selectedImage != null) {
-      File file = File(selectedImage.path);
-      _uploadFile(file, url, isProfileImage).then((_) => setState(() => {}));
-    }
-  }
-
-  Future<List<String>> getImages(String paths) async {
-    final ref = await FirebaseStorage.instance.ref(paths).listAll();
-    List<String> urls = await Future.wait(ref.items.map((ref) async {
-      return await ref.getDownloadURL();
-    }));
-    return urls;
-  }
-
   Widget _buildGrid(List<String> paths) {
     return RefreshIndicator(
       onRefresh: () async => setState(() => {}),
@@ -322,6 +306,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  saveUser() {
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+    final docUser = FirebaseFirestore.instance.collection("users").doc(userid);
+
+    docUser.update({"bioDescription": bioController.text});
+    setState(() {});
+  }
+
+  uploadImage(url, ImageSource source, isProfileImage) async {
+    final selectedImage = await ImagePicker().pickImage(source: source);
+    if (selectedImage != null) {
+      File file = File(selectedImage.path);
+      _uploadFile(file, url, isProfileImage).then((_) => setState(() => {}));
+    }
   }
 
   Future<String> _uploadFile(File file, String url, bool isProfileImage) async {
@@ -345,19 +345,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     ref.delete().then(
         (_) => setState(() => {})); // delete a file from Cloud Storage bucket
-  }
-
-  Future getImage(String path) async {
-    final ref = FirebaseStorage.instance.ref(path);
-
-    return await ref.getDownloadURL();
-  }
-
-  saveUser() async {
-    final userid = FirebaseAuth.instance.currentUser!.uid;
-    final docUser = FirebaseFirestore.instance.collection("users").doc(userid);
-
-    docUser.update({"bioDescription": bioController.text});
-    setState(() {});
   }
 }

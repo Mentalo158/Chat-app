@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/login/db.dart';
 import 'package:flutter_course/screens/models/User.dart';
+import 'package:flutter_course/screens/tabBarScreens/UserProfile.dart';
 import 'package:flutter_course/screens/tabBarScreens/insideChat.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -37,7 +38,12 @@ class _ChatScreenState extends State<ChatScreen> {
                         width: 55,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: Colors.white),
-                        child: Icon(Icons.person),
+                        child: GestureDetector(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        UserProfile(user: user))),
+                            child: Icon(Icons.person)),
                       ),
                       title: Text(
                         user.username,
