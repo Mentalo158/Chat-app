@@ -30,43 +30,74 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: users!.length,
                   itemBuilder: (ctx, i) {
                     final user = users[i];
-                    return ListTile(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => InChat(user: user),
-                        ),
-                      ),
-                      leading: FutureBuilder(
-                        future: ImageLoader.getImage(user.profileImagePath),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final image = snapshot.data;
-                            ClipOval(
-                              child: Image.network(
-                                image,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
+                    return FutureBuilder(
+                      future: ImageLoader.getImage(user.profileImagePath),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final image = snapshot.data;
+                          return ListTile(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => InChat(user: user),
                               ),
-                            );
-                          } else if (snapshot.hasError) {
-                            const ClipOval(
+                            ),
+                            leading: GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => InChat(user: user),
+                                ),
+                              ),
+                              child: GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserProfile(user: user))),
+                                child: ClipOval(
+                                  child: Image.network(
+                                    image,
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              user.username,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return ListTile(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => InChat(user: user),
+                              ),
+                            ),
+                            leading: GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          UserProfile(user: user))),
+                              child: const ClipOval(
                                 child: Image(
-                              width: 100,
-                              height: 100,
-                              image:
-                                  AssetImage('assets/images/blankprofile.jpg'),
-                              fit: BoxFit.cover,
-                            ));
-                          }
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        },
-                      ),
-                      title: Text(
-                        user.username,
-                        style: TextStyle(color: Colors.white),
-                      ),
+                                  width: 50,
+                                  height: 50,
+                                  image: AssetImage(
+                                      'assets/images/blankprofile.jpg'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              user.username,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }
+
+                        return const Center(child: CircularProgressIndicator());
+                      },
                     );
                   });
             } else {
@@ -78,3 +109,40 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+
+
+
+                      // onTap: () => Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => InChat(user: user),
+                      //   ),
+                      // ),
+                      // leading: FutureBuilder(
+                      //   future: ImageLoader.getImage(user.profileImagePath),
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.hasData) {
+                      //       final image = snapshot.data;
+                      //       ClipOval(
+                      //         child: Image.network(
+                      //           image,
+                      //           width: 100,
+                      //           height: 100,
+                      //           fit: BoxFit.cover,
+                      //         ),
+                      //       );
+                      //     } else if (snapshot.hasError) {
+                      //       const ClipOval(
+                      //           child: Image(
+                      //         width: 100,
+                      //         height: 100,
+                      //         image:
+                      //             AssetImage('assets/images/blankprofile.jpg'),
+                      //         fit: BoxFit.cover,
+                      //       ));
+                      //     }
+                      //     return const Center(
+                      //         child: CircularProgressIndicator());
+                      //   },
+                      // ),
+
+                      // GestureDetector( onTap: () => Navigator.of(context).push( MaterialPageRoute( builder: (context) => UserProfile(user: user))), child: Icon(Icons.person)),
