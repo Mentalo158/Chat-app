@@ -6,6 +6,9 @@ import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/UserProfile.dart';
 import 'package:flutter_course/screens/tabBarScreens/insideChat.dart';
 
+/*
+The screen where all Users are listed so that a chat can be opened with them.
+ */
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
@@ -14,12 +17,13 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  // Checks for the current user
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Ausgabe der User Liste (noch werden ALLE User angezeigt)
+      // Output of the User names
       body: StreamBuilder<List<MyUser>>(
           stream: DBfire().getDiscussionUser,
           builder: (context, snapshot) {
@@ -30,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: users!.length,
                   itemBuilder: (ctx, i) {
                     final user = users[i];
+                    //Output of the Profile images
                     return FutureBuilder(
                       future: ImageLoader.getImage(user.profileImagePath),
                       builder: (context, snapshot) {
@@ -112,37 +117,3 @@ class _ChatScreenState extends State<ChatScreen> {
 
 
 
-                      // onTap: () => Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => InChat(user: user),
-                      //   ),
-                      // ),
-                      // leading: FutureBuilder(
-                      //   future: ImageLoader.getImage(user.profileImagePath),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.hasData) {
-                      //       final image = snapshot.data;
-                      //       ClipOval(
-                      //         child: Image.network(
-                      //           image,
-                      //           width: 100,
-                      //           height: 100,
-                      //           fit: BoxFit.cover,
-                      //         ),
-                      //       );
-                      //     } else if (snapshot.hasError) {
-                      //       const ClipOval(
-                      //           child: Image(
-                      //         width: 100,
-                      //         height: 100,
-                      //         image:
-                      //             AssetImage('assets/images/blankprofile.jpg'),
-                      //         fit: BoxFit.cover,
-                      //       ));
-                      //     }
-                      //     return const Center(
-                      //         child: CircularProgressIndicator());
-                      //   },
-                      // ),
-
-                      // GestureDetector( onTap: () => Navigator.of(context).push( MaterialPageRoute( builder: (context) => UserProfile(user: user))), child: Icon(Icons.person)),

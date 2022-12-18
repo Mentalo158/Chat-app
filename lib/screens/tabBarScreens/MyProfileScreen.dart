@@ -80,11 +80,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   child: Stack(
                     children: [
                       const ClipOval(
+
                           child: Image(
                         width: 100,
                         height: 100,
                         image: AssetImage('assets/images/blankprofile.jpg'),
                         fit: BoxFit.cover,
+
                       )),
                       if (isEditing)
                         Container(
