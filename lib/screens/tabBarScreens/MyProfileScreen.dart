@@ -214,7 +214,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[900],
+                  backgroundColor: buttonColor,
                 ),
                 onPressed: () {
                   isEditing = false;

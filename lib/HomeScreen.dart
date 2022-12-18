@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   int _currentIndex = 0;
   String _currentAppBarTitle = "";
-  var barColor = Color(0xFF111111);
+  var barColor = Color(0xFF4d4d4d);
 
   // Different screens for BottomNavigatorBar
   final screens = [
