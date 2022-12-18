@@ -23,11 +23,11 @@ class InChat extends StatelessWidget {
         children: [
           Expanded(
               child: StreamBuilder<List<Nachricht>>(
-            stream: DBfire().getMessage(user!.uid!),
+            stream: DBfire().getMessage(user!.uid),
             builder: (context, s1) {
               if (s1.hasData) {
                 return StreamBuilder<List<Nachricht>>(
-                  stream: DBfire().getMessage(user!.uid!, false),
+                  stream: DBfire().getMessage(user!.uid, false),
                   builder: (context, s2) {
                     if (s2.hasData) {
                       var messages = [...s1.data!, ...s2.data!];

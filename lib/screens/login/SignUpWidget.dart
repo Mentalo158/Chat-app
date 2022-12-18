@@ -191,7 +191,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 .doc(value.user?.uid);
 
             final user = MyUser(
-              uid: value.user?.uid,
+              uid: value.user!.uid,
               username: usernameController.text.trim(),
               email: emailController.text.trim(),
               birthday: DateTime.parse(dateController.text.trim()),

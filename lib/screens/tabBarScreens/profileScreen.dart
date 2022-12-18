@@ -18,6 +18,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isEditing = false;
   Color buttonColor = const Color(0xFF4d4d4d);
+  final formKey = GlobalKey<FormState>();
+  final bioController = TextEditingController();
+
+  @override
+  void dispose() {
+    bioController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,27 +75,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
             future: getImage(user.profileImagePath),
             builder: ((context, snapshot) {
               if (snapshot.hasError) {
-                return const Align(
+                return Align(
                   alignment: Alignment(-0.9, 0),
-                  child: ClipOval(
-                      child: Image(
-                    width: 100,
-                    height: 100,
-                    image: AssetImage('assets/images/blankprofile.jpg'),
-                    fit: BoxFit.cover,
-                  )),
+                  child: Stack(
+                    children: [
+                      ClipOval(
+                          child: Image(
+                        width: 100,
+                        height: 100,
+                        image: AssetImage('assets/images/blankprofile.jpg'),
+                        fit: BoxFit.cover,
+                      )),
+                      if (isEditing)
+                        Container(
+                          decoration: const ShapeDecoration(
+                            color: Colors.lightBlue,
+                            shape: CircleBorder(),
+                          ),
+                          child: IconButton(
+                            onPressed: (() {
+                              pickImage(context, user.profileImagePath, false);
+                            }),
+                            icon: Icon(Icons.add_a_photo),
+                          ),
+                        ),
+                    ],
+                  ),
                 );
               } else if (snapshot.hasData) {
                 final image = snapshot.data;
                 return Align(
                     alignment: const Alignment(-0.9, 0),
-                    child: ClipOval(
-                      child: Image.network(
-                        image,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
+                    child: Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () => _deleteFile(image),
+                          child: ClipOval(
+                            child: Image.network(
+                              image,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        if (isEditing)
+                          Container(
+                            decoration: const ShapeDecoration(
+                              color: Colors.lightBlue,
+                              shape: CircleBorder(),
+                            ),
+                            child: IconButton(
+                              onPressed: (() {
+                                pickImage(
+                                    context, user.profileImagePath, false);
+                              }),
+                              icon: Icon(Icons.add_a_photo),
+                            ),
+                          ),
+                      ],
                     ));
               }
               return const Center(child: CircularProgressIndicator());
@@ -107,15 +154,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 5),
-          Align(
-            alignment: const Alignment(-0.9, 0.0),
-            child: Text(
-              user.bioDescription,
-              // style: TextStyle(color: Colors.white),
-              style: const TextStyle(color: Colors.white),
+          if (!isEditing)
+            Align(
+              alignment: const Alignment(-0.9, 0.0),
+              child: Text(
+                user.bioDescription,
+                // style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
+              ),
+            )
+          else
+            Form(
+              child: SizedBox(
+                height: 100,
+                child: TextFormField(
+                  key: formKey,
+                  textAlignVertical: TextAlignVertical.top,
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: 20,
+                  maxLength: 250,
+                  controller: bioController,
+                  textInputAction: TextInputAction.done,
+                  validator: (value) {
+                    if (value == bioController.text) {
+                      return 'Same text';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                      counterStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1, color: Colors.white),
+                      )),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           // TODO if the user is editing return a save button else edit profile
           if (!isEditing)
             Container(
@@ -133,12 +208,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   isEditing = true;
                   setState(() {});
                 },
-                // () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ProfileScreenEdit(user: user),
-                //   ),
-                // ),
                 child: const Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -162,12 +231,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   isEditing = false;
                   setState(() {});
                 },
-                // () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ProfileScreenEdit(user: user),
-                //   ),
-                // ),
                 child: const Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -193,7 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
               onPressed: () {
-                pickImage(context, user);
+                pickImage(context, user.imagePaths, true);
               },
               child: const Icon(Icons.add_a_photo),
             ),
@@ -203,7 +266,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future<dynamic> pickImage(BuildContext context, MyUser user) {
+  Future<dynamic> pickImage(
+      BuildContext context, String imagePath, bool isProfileImage) {
     return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -214,13 +278,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: () =>
-                    uploadImage(user.imagePaths, ImageSource.gallery),
+                    uploadImage(imagePath, ImageSource.gallery, isProfileImage),
                 child: const Text("Pick Gallery"),
               ),
               const SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () =>
-                    uploadImage(user.imagePaths, ImageSource.camera),
+                    uploadImage(imagePath, ImageSource.camera, isProfileImage),
                 child: const Text("Pick Camera"),
               ),
               const SizedBox(height: 5),
@@ -231,11 +295,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  uploadImage(url, ImageSource source) async {
+  uploadImage(url, ImageSource source, isProfileImage) async {
     final selectedImage = await ImagePicker().pickImage(source: source);
     if (selectedImage != null) {
       File file = File(selectedImage.path);
-      _uploadFile(file, url).then((_) => setState(() => {}));
+      _uploadFile(file, url, isProfileImage).then((_) => setState(() => {}));
     }
   }
 
@@ -268,9 +332,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future<String> _uploadFile(File file, String url) async {
+  Future<String> _uploadFile(File file, String url, bool isProfileImage) async {
     final filename = file.path.split('/').last;
-    final imagepath = "$url$filename";
+    final String imagepath;
+    if (isProfileImage) {
+      imagepath = "$url$filename";
+    } else {
+      imagepath = url;
+    }
     final ref = FirebaseStorage.instance.ref(imagepath);
     await ref.putFile(file); // upload file to Cloud Storage bucket
     return ref.getDownloadURL().toString();
