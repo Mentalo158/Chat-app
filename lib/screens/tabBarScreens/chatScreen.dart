@@ -40,9 +40,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         future: ImageLoader.getImage(user.profileImagePath),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
+                            final image = snapshot.data;
                             ClipOval(
                               child: Image.network(
-                                snapshot.data,
+                                image,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover,
