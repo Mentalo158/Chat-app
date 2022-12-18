@@ -8,7 +8,9 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildList(),
+      body: Center(
+      child: Text("To be added soon...", textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
+      )
     );
   }
 
