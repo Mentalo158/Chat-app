@@ -14,9 +14,6 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Direct Messages"),
-      ),
       // Ausgabe der User Liste (noch werden ALLE User angezeigt)
       body: StreamBuilder<List<MyUser>>(
           stream: DBfire().getDiscussionUser,
@@ -24,6 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
             if (snapshot.hasData) {
               final users = snapshot.data;
               return ListView.builder(
+                  itemExtent: 65,
                   itemCount: users!.length,
                   itemBuilder: (ctx, i) {
                     final user = users[i];
@@ -41,7 +39,10 @@ class _ChatScreenState extends State<ChatScreen> {
                             shape: BoxShape.circle, color: Colors.grey),
                         child: Icon(Icons.person),
                       ),
-                      title: Text(user.username),
+                      title: Text(
+                        user.username,
+                        style: TextStyle(color: Colors.white),
+                      ),
                     );
                   });
             } else {

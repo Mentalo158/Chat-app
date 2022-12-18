@@ -18,7 +18,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isEditing = false;
   Color buttonColor = const Color(0xFF4d4d4d);
-  final formKey = GlobalKey<FormState>();
   final bioController = TextEditingController();
 
   @override
@@ -39,12 +38,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else if (snapshot.hasData) {
             final user = snapshot.data;
 
-            return user == null
-                ? const Center(child: Text('No User'))
-                : buildUser(user, context);
-          } else {
-            return const Center(child: CircularProgressIndicator());
+            if (user == null) {
+              return const Center(child: Text('No User'));
+            } else {
+              bioController.text = user.bioDescription;
+              return buildUser(user, context);
+            }
           }
+          return const Center(child: CircularProgressIndicator());
         }),
       ),
     );
@@ -79,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment(-0.9, 0),
                   child: Stack(
                     children: [
-                      ClipOval(
+                      const ClipOval(
                           child: Image(
                         width: 100,
                         height: 100,
@@ -105,36 +106,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
               } else if (snapshot.hasData) {
                 final image = snapshot.data;
                 return Align(
-                    alignment: const Alignment(-0.9, 0),
-                    child: Stack(
-                      children: [
-                        GestureDetector(
-                          onTap: () => _deleteFile(image),
-                          child: ClipOval(
-                            child: Image.network(
-                              image,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
+                  alignment: const Alignment(-0.9, 0),
+                  child: Stack(
+                    children: [
+                      GestureDetector(
+                        onTap: () => _deleteFile(image),
+                        child: ClipOval(
+                          child: Image.network(
+                            image,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        if (isEditing)
-                          Container(
-                            decoration: const ShapeDecoration(
-                              color: Colors.lightBlue,
-                              shape: CircleBorder(),
-                            ),
-                            child: IconButton(
-                              onPressed: (() {
-                                pickImage(
-                                    context, user.profileImagePath, false);
-                              }),
-                              icon: Icon(Icons.add_a_photo),
-                            ),
+                      ),
+                      if (isEditing)
+                        Container(
+                          decoration: const ShapeDecoration(
+                            color: Colors.lightBlue,
+                            shape: CircleBorder(),
                           ),
-                      ],
-                    ));
+                          child: IconButton(
+                            onPressed: (() {
+                              pickImage(context, user.profileImagePath, false);
+                            }),
+                            icon: Icon(Icons.add_a_photo),
+                          ),
+                        ),
+                    ],
+                  ),
+                );
               }
               return const Center(child: CircularProgressIndicator());
             }),
@@ -164,31 +165,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             )
           else
-            Form(
-              child: SizedBox(
-                height: 100,
-                child: TextFormField(
-                  key: formKey,
-                  textAlignVertical: TextAlignVertical.top,
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 20,
-                  maxLength: 250,
-                  controller: bioController,
-                  textInputAction: TextInputAction.done,
-                  validator: (value) {
-                    if (value == bioController.text) {
-                      return 'Same text';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                      counterStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.white),
-                      )),
-                ),
-              ),
+            TextField(
+              textAlignVertical: TextAlignVertical.top,
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 20,
+              maxLength: 250,
+              controller: bioController,
+              textInputAction: TextInputAction.done,
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  counterStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Colors.white),
+                  )),
             ),
           const SizedBox(height: 20),
           // TODO if the user is editing return a save button else edit profile
@@ -229,6 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 onPressed: () {
                   isEditing = false;
+                  saveUser();
                   setState(() {});
                 },
                 child: const Align(
@@ -359,5 +351,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final ref = FirebaseStorage.instance.ref(path);
 
     return await ref.getDownloadURL();
+  }
+
+  saveUser() async {
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+    final docUser = FirebaseFirestore.instance.collection("users").doc(userid);
+
+    docUser.update({"bioDescription": bioController.text});
+    setState(() {});
   }
 }
