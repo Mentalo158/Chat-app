@@ -114,9 +114,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 11baa86bd94e27f374768b39f1eb432ed3157bfb
