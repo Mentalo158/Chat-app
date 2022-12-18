@@ -32,14 +32,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               const Text(
                 'Receive an email to\nreset your password',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
+                style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               const SizedBox(height: 20),
               TextFormField(
                 controller: _emailController,
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white30,
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Colors.white)),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     email != null && !EmailValidator.validate(email)

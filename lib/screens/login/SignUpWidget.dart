@@ -52,8 +52,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.done,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: const InputDecoration(labelText: 'Username'),
-                //TODO Change expression look
+                decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white30,
+                    labelText: 'Username',
+                    labelStyle: TextStyle(color: Colors.white)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -62,11 +65,16 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   }
                 },
               ),
+              const SizedBox(height: 4),
+
               TextFormField(
                 controller: dateController,
                 decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white30,
                     prefixIcon: Icon(Icons.calendar_today_rounded),
-                    labelText: "Select Birthdate"),
+                    labelText: "Select Birthdate",
+                  labelStyle: TextStyle(color: Colors.white)),
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
@@ -97,7 +105,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 cursorColor: Colors.white,
                 // style: TextStyle(color: Colors.white),
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white30,
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Colors.white)),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     email != null && !EmailValidator.validate(email)
@@ -108,14 +120,18 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               TextFormField(
                 controller: passwordController,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white30,
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: Colors.white)),
                 obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => value != null && value.length < 6
                     ? 'Enter min. 6 characters'
                     : null,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
@@ -130,7 +146,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               const SizedBox(height: 24),
               RichText(
                 text: TextSpan(
-                  style: const TextStyle(color: Colors.black, fontSize: 20),
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
                   text: 'Already have an account?',
                   children: [
                     TextSpan(

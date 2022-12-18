@@ -32,25 +32,40 @@ class _SignInWidgetState extends State<SignInWidget> {
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child:
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 20),
+            Image(
+              image: AssetImage(
+                  'assets/images/Logo.jpg'
+              ),
+            ),
             const SizedBox(height: 40),
             TextField(
               controller: emailController,
               cursorColor: Colors.white,
               // style: TextStyle(color: Colors.white),
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(
+                  filled: true, 
+                  fillColor: Colors.white30,
+                  labelText: 'Email',
+                  labelStyle: TextStyle(color: Colors.white)),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 15),
             TextField(
               controller: passwordController,
               textInputAction: TextInputAction.done,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white30,
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Colors.white)),
               obscureText: true,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 140),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
@@ -81,7 +96,7 @@ class _SignInWidgetState extends State<SignInWidget> {
             const SizedBox(height: 16),
             RichText(
               text: TextSpan(
-                style: const TextStyle(color: Colors.black, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
                 text: 'No account?',
                 children: [
                   TextSpan(
