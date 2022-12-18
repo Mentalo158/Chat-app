@@ -7,8 +7,6 @@ import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:image_picker/image_picker.dart';
 
-// TODO add permission handler? maybe
-// TODO split uploading images to a new class
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
 

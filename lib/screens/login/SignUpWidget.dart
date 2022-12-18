@@ -66,7 +66,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 },
               ),
               const SizedBox(height: 4),
-
               TextFormField(
                 controller: dateController,
                 decoration: const InputDecoration(
@@ -74,7 +73,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     fillColor: Colors.white30,
                     prefixIcon: Icon(Icons.calendar_today_rounded),
                     labelText: "Select Birthdate",
-                  labelStyle: TextStyle(color: Colors.white)),
+                    labelStyle: TextStyle(color: Colors.white)),
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
@@ -197,7 +196,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               birthday: DateTime.parse(dateController.text.trim()),
               profileImagePath: "users/${value.user!.uid}/profileImage.jpg",
               profileBannerPath: "users/${value.user!.uid}/profileBanner.jpg",
-              imagePaths: "users/${value.user!.uid}/images/.",
+              imagePaths: "users/${value.user!.uid}/images/",
               bioDescription: '',
             );
             final json = user.toJson();

@@ -43,6 +43,7 @@ class _InChatState extends State<InChat> {
                       // Gibt Nachrichten so aus dass die neuste unten ist
                       messages = messages.reversed.toList();
                       return ListView.builder(
+                        itemExtent: 50,
                         reverse: true,
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
@@ -68,13 +69,20 @@ class _InChatState extends State<InChat> {
             child: Form(
               key: formKey,
               child: TextFormField(
+                style: TextStyle(color: Colors.white),
                 controller: msgCont,
                 validator: (value) => value!.isEmpty ? "No blank space" : null,
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
-                        onPressed: _sendMessage, icon: const Icon(Icons.send)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                        onPressed: _sendMessage,
+                        icon: const Icon(
+                          Icons.send,
+                          color: Color(0xFF4d4d4d),
+                        )),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 1, color: Colors.white),
+                    )),
               ),
             ),
           ),
