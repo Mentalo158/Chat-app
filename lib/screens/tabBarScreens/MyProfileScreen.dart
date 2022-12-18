@@ -80,13 +80,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   child: Stack(
                     children: [
                       const ClipOval(
-
                           child: Image(
                         width: 100,
                         height: 100,
                         image: AssetImage('assets/images/blankprofile.jpg'),
                         fit: BoxFit.cover,
-
                       )),
                       if (isEditing)
                         Container(
@@ -182,7 +180,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   )),
             ),
           const SizedBox(height: 20),
-          // TODO if the user is editing return a save button else edit profile
           if (!isEditing)
             Container(
               width: double.infinity,
@@ -192,7 +189,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  // TODO Change color
                   backgroundColor: buttonColor,
                 ),
                 onPressed: () {
@@ -232,7 +228,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               ),
             ),
           const SizedBox(height: 10),
-
           FutureBuilder(
             future: ImageLoader.getImages(user.imagePaths),
             builder: ((context, snapshot) {
@@ -258,6 +253,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     );
   }
 
+  /*
+  Return a BottomModelSheet with 2 buttons for the user to take a Photo
+  via camera or gallery
+  */
   Future<dynamic> pickImage(
       BuildContext context, String imagePath, bool isProfileImage) {
     return showModalBottomSheet(
@@ -287,6 +286,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     );
   }
 
+  // Build he GridView with the users images
   Widget _buildGrid(List<String> paths) {
     return RefreshIndicator(
       onRefresh: () async => setState(() => {}),
@@ -308,6 +308,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     );
   }
 
+  // Save the user BioDescription
   saveUser() {
     final userid = FirebaseAuth.instance.currentUser!.uid;
     final docUser = FirebaseFirestore.instance.collection("users").doc(userid);
@@ -316,6 +317,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     setState(() {});
   }
 
+  // Upload a Image to the App
   uploadImage(url, ImageSource source, isProfileImage) async {
     final selectedImage = await ImagePicker().pickImage(source: source);
     if (selectedImage != null) {
@@ -324,6 +326,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     }
   }
 
+  // Upload the Image to FirebaseStorage
   Future<String> _uploadFile(File file, String url, bool isProfileImage) async {
     final filename = file.path.split('/').last;
     final String imagepath;
@@ -337,6 +340,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     return ref.getDownloadURL().toString();
   }
 
+  // Delete the image from FirebaseStorage
   _deleteFile(String url) {
     print(url);
     final filename = Uri.decodeFull(url.split('/').last.split('?').first);
