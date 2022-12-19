@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/tabBarScreens/ChatScreen.dart';
+import 'package:flutter_course/screens/tabBarScreens/chatscreens/chatScreen.dart';
 import 'screens/tabBarScreens/profilescreens/MyProfileScreen.dart';
 import 'screens/tabBarScreens/SettingsScreen.dart';
 import 'screens/tabBarScreens/FeedScreen.dart';
