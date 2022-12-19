@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
-import 'package:flutter_course/screens/login/db.dart';
 import 'package:flutter_course/screens/models/User.dart';
-import 'package:flutter_course/screens/tabBarScreens/UserProfile.dart';
-import 'package:flutter_course/screens/tabBarScreens/insideChat.dart';
+import 'package:flutter_course/screens/tabBarScreens/chatscreens/db.dart';
+import 'package:flutter_course/screens/tabBarScreens/chatscreens/insideChat.dart';
+import 'package:flutter_course/screens/tabBarScreens/profilescreens/UserProfile.dart';
 
 /*
 The screen where all Users are listed so that a chat can be opened with them.

@@ -275,17 +275,19 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 180,
-          color: Colors.amber,
+          height: 110,
+          color: buttonColor,
           child: Column(
             children: <Widget>[
               ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 onPressed: () =>
                     uploadImage(imagePath, ImageSource.gallery, isProfileImage),
                 child: const Text("Pick Gallery"),
               ),
               const SizedBox(height: 5),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 onPressed: () =>
                     uploadImage(imagePath, ImageSource.camera, isProfileImage),
                 child: const Text("Pick Camera"),

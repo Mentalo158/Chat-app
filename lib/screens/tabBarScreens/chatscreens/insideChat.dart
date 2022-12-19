@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/login/db.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
+import 'package:flutter_course/screens/tabBarScreens/chatscreens/db.dart';
 import 'package:flutter_course/widgets/NachrichtenWidg.dart';
 
 /*

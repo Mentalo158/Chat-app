@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
-import '../models/User.dart';
+import '../../models/User.dart';
 
 // The class UserProfile shows other profiles not the own one
 class UserProfile extends StatefulWidget {
