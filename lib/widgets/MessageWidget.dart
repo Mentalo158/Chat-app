@@ -20,35 +20,35 @@ class MessageWidget extends StatelessWidget {
         Stack(
           children: [
             Container(
-              padding: EdgeInsets.only(right: 30, left: 20, top: 5),
+              padding: const EdgeInsets.only(right: 30, left: 20, top: 5),
               decoration: BoxDecoration(
                   color: msg.isMe
-                      ? Color.fromRGBO(85, 107, 47, 100)
+                      ? const Color.fromRGBO(85, 107, 47, 100)
                       : Colors.blueGrey,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+                    topLeft: const Radius.circular(10),
+                    topRight: const Radius.circular(10),
                     bottomLeft:
-                        msg.isMe ? Radius.circular(10) : Radius.circular(0),
+                        msg.isMe ? const Radius.circular(10) : const Radius.circular(0),
                     bottomRight:
-                        msg.isMe ? Radius.circular(0) : Radius.circular(10),
+                        msg.isMe ? const Radius.circular(0) : const Radius.circular(10),
                   )),
               constraints: BoxConstraints(
                   minWidth: 30, minHeight: 40, maxWidth: width / 1.1),
               child: Text(
                 msg.content,
                 textAlign: TextAlign.start,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
             Positioned(
               bottom: 0,
               right: 0,
               child: Container(
-                padding: EdgeInsets.only(right: 5, bottom: 5),
+                padding: const EdgeInsets.only(right: 5, bottom: 5),
                 child: Text(
                   "${date.hour}h${date.minute}",
-                  style: TextStyle(fontSize: 10, color: Colors.white),
+                  style: const TextStyle(fontSize: 10, color: Colors.white),
                 ),
               ),
             )
