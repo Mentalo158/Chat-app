@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
-import 'package:flutter_course/screens/tabBarScreens/chatscreens/db.dart';
+import 'package:flutter_course/screens/tabscreens/chatscreens/db.dart';
 import 'package:flutter_course/widgets/MessageWidget.dart';
 
 /*
