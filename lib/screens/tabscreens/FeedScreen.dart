@@ -5,15 +5,15 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
       child: Text("To be added soon...", textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
       )
     );
   }
 
-  // TODO Concept for home?
-  Widget _buildList() => ListView(children: []);
+  // TODO Concept for Feedscreen?
+  Widget _buildList() => ListView(children: const []);
 
   ListTile _tile() => const ListTile();
 }

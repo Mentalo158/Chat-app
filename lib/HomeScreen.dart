@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/tabBarScreens/chatscreens/ChatScreen.dart';
+import 'package:flutter_course/screens/tabscreens/chatscreens/ChatScreen.dart';
 import 'screens/tabscreens/profilescreens/MyProfileScreen.dart';
-import 'screens/tabBarScreens/SettingsScreen.dart';
+import 'screens/tabscreens/SettingsScreen.dart';
 import 'screens/tabscreens/FeedScreen.dart';
 
 class HomeScreen extends StatefulWidget {
