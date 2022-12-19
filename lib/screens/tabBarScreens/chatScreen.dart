@@ -29,8 +29,10 @@ class _ChatScreenState extends State<ChatScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final users = snapshot.data;
-              return ListView.builder(
-                  itemExtent: 65,
+              return ListView.separated(
+                  separatorBuilder: (context, index) => Divider(
+                        color: Colors.black,
+                      ),
                   itemCount: users!.length,
                   itemBuilder: (ctx, i) {
                     final user = users[i];
