@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/models/nachrichten.dart';
+import 'package:flutter_course/screens/models/Messages.dart';
 
 /*
 A widget for the messages.

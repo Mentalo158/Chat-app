@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
+import 'package:flutter_course/screens/ImageLoader.dart';
 import '../../models/User.dart';
 
 // The class UserProfile shows other profiles not the own one
@@ -16,6 +16,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        backgroundColor: const Color.fromRGBO(156, 145, 132, 10),
         title: Text(widget.user!.username),
       ),
       body: ListView(

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_course/screens/models/User.dart';
-import 'package:flutter_course/screens/models/nachrichten.dart';
+import 'package:flutter_course/screens/models/Messages.dart';
 
 class DBfire {
   final userId = FirebaseAuth.instance.currentUser!.uid;

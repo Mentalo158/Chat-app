@@ -74,7 +74,10 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       ? const HomeScreen()
       : Scaffold(
           appBar: AppBar(
-            title: const Text('Verify Email'),
+            title: const Text(
+              'Verify Email',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -83,30 +86,31 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               children: [
                 const Text(
                   'A verification email has been sent to your email.',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF4d4d4d),
                     minimumSize: const Size.fromHeight(50),
                   ),
                   onPressed: canResendEmail ? sendVerificationEmail : null,
                   icon: const Icon(Icons.email, size: 32),
                   label: const Text(
                     'Resent Email',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 8),
                 TextButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                  ),
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor: Color(0xFF4d4d4d)),
                   onPressed: () => FirebaseAuth.instance.signOut(),
                   child: const Text(
                     'Cancel',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 )
               ],
