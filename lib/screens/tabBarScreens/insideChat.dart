@@ -34,7 +34,7 @@ class _InChatState extends State<InChat> {
         children: [
           Expanded(
               child: StreamBuilder<List<Nachricht>>(
-                //Fetches the messages from DB
+            //Fetches the messages from DB
             stream: DBfire().getMessage(widget.user!.uid),
             builder: (context, s1) {
               if (s1.hasData) {
@@ -95,6 +95,7 @@ class _InChatState extends State<InChat> {
       ),
     );
   }
+
   //Assigns the values and data to the variables
   Future _sendMessage() async {
     final isValid = formKey.currentState!.validate();

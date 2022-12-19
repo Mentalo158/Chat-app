@@ -87,16 +87,21 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         fit: BoxFit.cover,
                       )),
                       if (isEditing)
-                        Container(
-                          decoration: const ShapeDecoration(
-                            color: Colors.lightBlue,
-                            shape: CircleBorder(),
-                          ),
-                          child: IconButton(
-                            onPressed: (() {
-                              pickImage(context, user.profileImagePath, false);
-                            }),
-                            icon: const Icon(Icons.add_a_photo),
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            decoration: const ShapeDecoration(
+                              color: Color(0xFF4d4d4d),
+                              shape: CircleBorder(),
+                            ),
+                            child: IconButton(
+                              onPressed: (() {
+                                pickImage(
+                                    context, user.profileImagePath, false);
+                              }),
+                              icon: const Icon(Icons.add_a_photo,
+                                  color: Colors.white),
+                            ),
                           ),
                         ),
                     ],
@@ -120,16 +125,21 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         ),
                       ),
                       if (isEditing)
-                        Container(
-                          decoration: const ShapeDecoration(
-                            color: Colors.lightBlue,
-                            shape: CircleBorder(),
-                          ),
-                          child: IconButton(
-                            onPressed: (() {
-                              pickImage(context, user.profileImagePath, false);
-                            }),
-                            icon: const Icon(Icons.add_a_photo),
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            decoration: const ShapeDecoration(
+                              color: Color(0xFF4d4d4d),
+                              shape: CircleBorder(),
+                            ),
+                            child: IconButton(
+                              onPressed: (() {
+                                pickImage(
+                                    context, user.profileImagePath, false);
+                              }),
+                              icon: const Icon(Icons.add_a_photo,
+                                  color: Colors.white),
+                            ),
                           ),
                         ),
                     ],
@@ -222,7 +232,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 child: const Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Save Profile",
+                    "Return",
                   ),
                 ),
               ),
@@ -239,15 +249,17 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               return const Center(child: CircularProgressIndicator());
             }),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              onPressed: () {
-                pickImage(context, user.imagePaths, true);
-              },
-              child: const Icon(Icons.add_a_photo),
+          if (isEditing)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                onPressed: () {
+                  pickImage(context, user.imagePaths, true);
+                },
+                backgroundColor: buttonColor,
+                child: const Icon(Icons.add_a_photo),
+              ),
             ),
-          ),
         ],
       ),
     );
