@@ -26,6 +26,7 @@ class _InChatState extends State<InChat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(156, 145, 132, 10),
         // Puts the Username onto the AppBar
         title: Text(widget.user!.username),
         centerTitle: true,
@@ -81,7 +82,7 @@ class _InChatState extends State<InChat> {
                         onPressed: _sendMessage,
                         icon: const Icon(
                           Icons.send,
-                          color: Color(0xFF4d4d4d),
+                          color: Colors.white,
                         )),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),

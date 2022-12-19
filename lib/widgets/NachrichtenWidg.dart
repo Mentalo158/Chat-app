@@ -22,8 +22,8 @@ class NachrichtenWid extends StatelessWidget {
               padding: EdgeInsets.only(right: 30, left: 20, top: 5),
               decoration: BoxDecoration(
                   color: msg.isMe
-                      ? Colors.blueAccent
-                      : Colors.black.withOpacity(.8),
+                      ? Color.fromRGBO(85, 107, 47, 100)
+                      : Colors.blueGrey,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
