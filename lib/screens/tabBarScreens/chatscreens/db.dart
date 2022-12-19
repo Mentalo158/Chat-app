@@ -7,7 +7,7 @@ class DBfire {
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
   final userCol = FirebaseFirestore.instance.collection("users");
-  final msgCol = FirebaseFirestore.instance.collection("Nachrichten");
+  final msgCol = FirebaseFirestore.instance.collection("messages");
 
   saveUser(MyUser user) async {
     try {

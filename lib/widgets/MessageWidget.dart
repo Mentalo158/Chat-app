@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
+
 /*
 A widget for the messages.
  */
-class NachrichtenWid extends StatelessWidget {
-  const NachrichtenWid({Key? key, required this.msg}) : super(key: key);
+class MessageWidget extends StatelessWidget {
+  const MessageWidget({Key? key, required this.msg}) : super(key: key);
   final Nachricht msg;
 
   @override

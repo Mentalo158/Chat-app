@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/imageLoader/ImageLoader.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/tabBarScreens/chatscreens/db.dart';
-import 'package:flutter_course/screens/tabBarScreens/chatscreens/insideChat.dart';
+import 'package:flutter_course/screens/tabBarScreens/chatscreens/InsideChat.dart';
 import 'package:flutter_course/screens/tabBarScreens/profilescreens/UserProfile.dart';
 
 /*

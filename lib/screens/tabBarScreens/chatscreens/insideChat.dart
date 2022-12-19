@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/screens/models/User.dart';
 import 'package:flutter_course/screens/models/nachrichten.dart';
 import 'package:flutter_course/screens/tabBarScreens/chatscreens/db.dart';
-import 'package:flutter_course/widgets/NachrichtenWidg.dart';
+import 'package:flutter_course/widgets/MessageWidget.dart';
 
 /*
 Class to represent the chat with a specific user.
@@ -54,7 +54,7 @@ class _InChatState extends State<InChat> {
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
                           final message = messages[index];
-                          return NachrichtenWid(
+                          return MessageWidget(
                             msg: message,
                           );
                         },
