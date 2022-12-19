@@ -6,7 +6,7 @@ A widget for the messages.
  */
 class MessageWidget extends StatelessWidget {
   const MessageWidget({Key? key, required this.msg}) : super(key: key);
-  final Nachricht msg;
+  final Messages msg;
 
   @override
   Widget build(BuildContext context) {

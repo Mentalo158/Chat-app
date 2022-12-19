@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 This class is used to store the attributes of the messages so we can filter
 for example messages by their sender.
  */
-class Nachricht {
+class Messages {
   String content;
   String? uid;
   String? senderUID;
@@ -13,7 +13,7 @@ class Nachricht {
 
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
-  Nachricht(
+  Messages(
       {required this.content,
       this.senderUID,
       this.reciverUID,
@@ -21,7 +21,7 @@ class Nachricht {
       this.uid});
 
   // Saves the Attributes via JSON
-  static Nachricht fromJson(Map<String, dynamic> json, String id) => Nachricht(
+  static Messages fromJson(Map<String, dynamic> json, String id) => Messages(
         content: json["content"],
         senderUID: json["senderUID"],
         reciverUID: json["receiverUID"],

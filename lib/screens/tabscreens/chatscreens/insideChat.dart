@@ -34,12 +34,12 @@ class _InChatState extends State<InChat> {
       body: Column(
         children: [
           Expanded(
-              child: StreamBuilder<List<Nachricht>>(
+              child: StreamBuilder<List<Messages>>(
             //Fetches the messages from DB
             stream: DBfire().getMessage(widget.user!.uid),
             builder: (context, s1) {
               if (s1.hasData) {
-                return StreamBuilder<List<Nachricht>>(
+                return StreamBuilder<List<Messages>>(
                   stream: DBfire().getMessage(widget.user!.uid, false),
                   builder: (context, s2) {
                     if (s2.hasData) {
@@ -103,7 +103,7 @@ class _InChatState extends State<InChat> {
     if (!isValid) return;
 
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    var msg = Nachricht(
+    var msg = Messages(
       content: msgCont.text,
       createAt: Timestamp.now(),
       reciverUID: widget.user!.uid,

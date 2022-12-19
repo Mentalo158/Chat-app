@@ -23,17 +23,17 @@ class DBfire {
         (event) => event.docs.map((e) => MyUser.fromJson(e.data())).toList());
   }
 
-  Stream<List<Nachricht>> getMessage(String reciverUID,
+  Stream<List<Messages>> getMessage(String reciverUID,
       [bool myMessage = true]) {
     return msgCol
         .where("senderUID", isEqualTo: myMessage ? userId : reciverUID)
         .where("reciverUID", isEqualTo: myMessage ? reciverUID : userId)
         .snapshots()
         .map((event) =>
-            event.docs.map((e) => Nachricht.fromJson(e.data(), e.id)).toList());
+            event.docs.map((e) => Messages.fromJson(e.data(), e.id)).toList());
   }
 
-  Future<bool> sendMessage(Nachricht msg) async {
+  Future<bool> sendMessage(Messages msg) async {
     try {
       await msgCol.doc().set(msg.toJson());
       return true;
